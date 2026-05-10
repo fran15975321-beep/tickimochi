@@ -289,12 +289,154 @@ function openSurvey() {
 }
 
 // =====================================================
-// Profile
+// Profile — carrusel de pasos
 // =====================================================
+const TOTAL_STEPS = 3;
+let currentStep = 0;
+
+const stepLabels = ['Identidad', 'Contacto', 'Confirmar'];
+
+function buildStepIndicators() {
+    const container = document.getElementById('step-indicators');
+    if (!container) return;
+    container.innerHTML = stepLabels.map((label, i) => `
+        <div class="flex items-center gap-2" id="step-ind-${i}">
+            <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300
+                        ${i === 0 ? 'bg-[#FF2D55] text-white shadow-[0_0_14px_rgba(255,45,85,0.5)]' : 'bg-white/10 text-gray-400'}"
+                 id="step-circle-${i}">${i + 1}</div>
+            <span class="text-xs font-semibold hidden sm:block ${i === 0 ? 'text-white' : 'text-gray-500'}"
+                  id="step-label-${i}">${label}</span>
+            ${i < TOTAL_STEPS - 1 ? '<div class="w-8 h-px bg-white/10 mx-1" id="step-line-' + i + '"></div>' : ''}
+        </div>
+    `).join('');
+}
+
+function updateStepIndicators() {
+    stepLabels.forEach((_, i) => {
+        const circle = document.getElementById(`step-circle-${i}`);
+        const label  = document.getElementById(`step-label-${i}`);
+        const line   = document.getElementById(`step-line-${i}`);
+        if (!circle) return;
+
+        if (i < currentStep) {
+            // completado
+            circle.className = 'w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 bg-green-500 text-white';
+            circle.innerHTML = '✓';
+            if (label) label.className = 'text-xs font-semibold hidden sm:block text-green-400';
+            if (line)  line.className  = 'w-8 h-px bg-green-500/50 mx-1';
+        } else if (i === currentStep) {
+            // activo
+            circle.className = 'w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 bg-[#FF2D55] text-white shadow-[0_0_14px_rgba(255,45,85,0.5)]';
+            circle.innerHTML = i + 1;
+            if (label) label.className = 'text-xs font-semibold hidden sm:block text-white';
+        } else {
+            // pendiente
+            circle.className = 'w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 bg-white/10 text-gray-400';
+            circle.innerHTML = i + 1;
+            if (label) label.className = 'text-xs font-semibold hidden sm:block text-gray-500';
+        }
+    });
+}
+
+function updateStepSlider() {
+    const wrapper = document.getElementById('steps-wrapper');
+    if (wrapper) wrapper.style.transform = `translateX(-${currentStep * 100}%)`;
+}
+
+function updateNavButtons() {
+    const backBtn = document.getElementById('step-back-btn');
+    const nextBtn = document.getElementById('step-next-btn');
+    if (!backBtn || !nextBtn) return;
+
+    backBtn.style.visibility = currentStep === 0 ? 'hidden' : 'visible';
+
+    if (currentStep === TOTAL_STEPS - 1) {
+        nextBtn.textContent = '¡Empezar a comprar!';
+        nextBtn.style.background = '#22c55e';
+        nextBtn.style.boxShadow  = '0 4px 15px rgba(34,197,94,0.35)';
+    } else {
+        nextBtn.textContent = 'Siguiente';
+        nextBtn.style.background = '';
+        nextBtn.style.boxShadow  = '';
+    }
+}
+
+function profileStepNext() {
+    if (currentStep === TOTAL_STEPS - 1) {
+        // Último paso → guardar y redirigir
+        saveProfile();
+        return;
+    }
+    // Validación básica por paso
+    if (!validateStep(currentStep)) return;
+
+    // En paso 1 (confirmación), rellenar resumen
+    if (currentStep === 1) fillSummary();
+
+    currentStep++;
+    updateStepSlider();
+    updateStepIndicators();
+    updateNavButtons();
+}
+
+function profileStepBack() {
+    if (currentStep === 0) return;
+    currentStep--;
+    updateStepSlider();
+    updateStepIndicators();
+    updateNavButtons();
+}
+
+function validateStep(step) {
+    const errors = [];
+    if (step === 0) {
+        if (!document.getElementById('profile-nombre').value.trim()) errors.push('El nombre es requerido.');
+        if (!document.getElementById('profile-apellido').value.trim()) errors.push('El apellido es requerido.');
+        if (!document.getElementById('profile-dni').value.trim()) errors.push('El DNI es requerido.');
+    }
+    if (step === 1) {
+        if (!document.getElementById('profile-ciudad').value.trim()) errors.push('La ciudad es requerida.');
+    }
+    if (errors.length) {
+        showToast('⚠️ ' + errors[0], '#FF2D55');
+        return false;
+    }
+    return true;
+}
+
+function fillSummary() {
+    const avatarEl    = document.getElementById('profile-avatar');
+    const sumAvatar   = document.getElementById('summary-avatar');
+    const sumAvatarPh = document.getElementById('summary-avatar-placeholder');
+
+    if (avatarEl && !avatarEl.classList.contains('hidden') && avatarEl.src) {
+        sumAvatar.src = avatarEl.src;
+        sumAvatar.classList.remove('hidden');
+        sumAvatarPh.classList.add('hidden');
+    }
+
+    const nombre   = document.getElementById('profile-nombre').value;
+    const apellido = document.getElementById('profile-apellido').value;
+    document.getElementById('summary-name').textContent  = [nombre, apellido].filter(Boolean).join(' ') || '—';
+    document.getElementById('summary-email').textContent = document.getElementById('profile-correo').value || '—';
+    document.getElementById('summary-dni').textContent        = document.getElementById('profile-dni').value        || '—';
+    document.getElementById('summary-nacimiento').textContent = document.getElementById('profile-nacimiento').value || '—';
+    document.getElementById('summary-ciudad').textContent     = document.getElementById('profile-ciudad').value     || '—';
+    document.getElementById('summary-direccion').textContent  = document.getElementById('profile-direccion').value  || '—';
+    document.getElementById('summary-genero').textContent     = document.getElementById('profile-genero').value     || '—';
+}
+
 function loadProfile() {
     if (!currentUser) return;
 
-    // Foto de Google o placeholder
+    // Reset al paso 1
+    currentStep = 0;
+    buildStepIndicators();
+    updateStepSlider();
+    updateStepIndicators();
+    updateNavButtons();
+
+    // Foto de Google
     const avatarEl = document.getElementById('profile-avatar');
     const placeholderEl = document.getElementById('profile-avatar-placeholder');
     if (currentUser.picture) {
@@ -303,16 +445,12 @@ function loadProfile() {
         placeholderEl.classList.add('hidden');
     }
 
-    // Nombre completo y email en el encabezado
-    document.getElementById('profile-full-name').textContent = currentUser.name || '';
-    document.getElementById('profile-email-display').textContent = currentUser.email || '';
-
     // Correo autollenado (readonly)
     document.getElementById('profile-correo').value = currentUser.email || '';
 
-    // Pre-rellenar nombre/apellido desde Google si están disponibles
+    // Pre-rellenar nombre/apellido desde Google
     const nameParts = (currentUser.name || '').split(' ');
-    document.getElementById('profile-nombre').value = nameParts[0] || '';
+    document.getElementById('profile-nombre').value  = nameParts[0] || '';
     document.getElementById('profile-apellido').value = nameParts.slice(1).join(' ') || '';
 
     // Cargar datos guardados previamente
@@ -347,22 +485,40 @@ function saveProfile() {
     };
     localStorage.setItem('tickimochi_profile', JSON.stringify(data));
 
-    // Actualizar encabezado con nombre guardado
+    // Actualizar navbar
     const fullName = [data.nombre, data.apellido].filter(Boolean).join(' ');
-    if (fullName) {
-        document.getElementById('profile-full-name').textContent = fullName;
-        document.getElementById('user-name').textContent = data.nombre;
-    }
+    if (fullName) document.getElementById('user-name').textContent = data.nombre;
 
-    // Feedback visual en el botón
-    const btn = document.querySelector('#profile button[onclick="saveProfile()"]');
-    const original = btn.textContent;
-    btn.textContent = '✓ Guardado';
-    btn.style.background = '#22c55e';
+    showToast('✓ Perfil guardado. ¡Bienvenido!', '#22c55e');
+    setTimeout(() => showSection('home'), 1400);
+}
+
+function showToast(message, color = '#22c55e') {
+    const existing = document.getElementById('toast-notification');
+    if (existing) existing.remove();
+
+    const toast = document.createElement('div');
+    toast.id = 'toast-notification';
+    toast.textContent = message;
+    toast.style.cssText = `
+        position: fixed; bottom: 32px; left: 50%;
+        transform: translateX(-50%) translateY(20px);
+        background: ${color}; color: white;
+        padding: 14px 32px; border-radius: 999px;
+        font-weight: 700; font-size: 15px; z-index: 9999;
+        box-shadow: 0 8px 30px ${color}66;
+        opacity: 0; transition: all 0.35s ease; white-space: nowrap;
+    `;
+    document.body.appendChild(toast);
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+        toast.style.opacity = '1';
+        toast.style.transform = 'translateX(-50%) translateY(0)';
+    }));
     setTimeout(() => {
-        btn.textContent = original;
-        btn.style.background = '';
-    }, 2000);
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(-50%) translateY(20px)';
+        setTimeout(() => toast.remove(), 400);
+    }, 1300);
 }
 
 function previewAvatar(event) {
