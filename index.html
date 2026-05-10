@@ -22,9 +22,7 @@
             overflow-x: hidden;
         }
 
-        .neon-text {
-            text-shadow: 0 0 10px rgba(255, 45, 85, 0.5);
-        }
+        .neon-text { text-shadow: 0 0 10px rgba(255, 45, 85, 0.5); }
 
         .btn-primary {
             background-color: var(--neon-red);
@@ -32,7 +30,6 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(255, 45, 85, 0.3);
         }
-
         .btn-primary:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(255, 45, 85, 0.5);
@@ -45,7 +42,6 @@
             transition: transform 0.3s ease;
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
-
         .event-card:hover {
             transform: scale(1.03);
             border-color: var(--neon-red);
@@ -65,23 +61,10 @@
             height: 50px;
             animation: spin 1s linear infinite;
         }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+        .hidden-section { display: none; }
 
-        .hidden-section {
-            display: none;
-        }
-
-        .qr-container {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            display: inline-block;
-        }
-
-        /* Scrollbar personalizada */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #0A0F1C; }
         ::-webkit-scrollbar-thumb { background: #1F2937; border-radius: 10px; }
@@ -91,24 +74,10 @@
             animation: fadeOut 1s ease forwards;
             animation-delay: 2s;
         }
+        @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
+        body.loading { overflow: hidden; }
 
-        @keyframes fadeOut {
-            to {
-                opacity: 0;
-                visibility: hidden;
-            }
-        }
-
-        body.loading {
-            overflow: hidden;
-        }
-
-        /* Dropdown del usuario */
-        .user-dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
+        .user-dropdown { position: relative; display: inline-block; }
         .dropdown-content {
             display: none;
             position: absolute;
@@ -122,7 +91,6 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             top: 70px;
         }
-
         .dropdown-content a {
             color: white;
             padding: 12px 0;
@@ -132,18 +100,9 @@
             transition: color 0.3s ease;
             font-size: 14px;
         }
-
-        .dropdown-content a:hover {
-            color: var(--neon-red);
-        }
-
-        .dropdown-content a:not(:last-child) {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .user-dropdown.active .dropdown-content {
-            display: block;
-        }
+        .dropdown-content a:hover { color: var(--neon-red); }
+        .dropdown-content a:not(:last-child) { border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .user-dropdown.active .dropdown-content { display: block; }
 
         .user-profile-btn {
             display: flex;
@@ -154,559 +113,548 @@
             border-radius: 50px;
             transition: background-color 0.3s ease;
         }
+        .user-profile-btn:hover { background-color: rgba(255, 45, 85, 0.1); }
+        .user-profile-btn img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+        .user-profile-btn span { font-size: 14px; font-weight: 600; }
 
-        .user-profile-btn:hover {
-            background-color: rgba(255, 45, 85, 0.1);
+        /* Google button container */
+        #google-signin-button {
+            display: flex;
+            justify-content: center;
+            margin-top: 8px;
         }
 
-        .user-profile-btn img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .user-profile-btn span {
-            font-size: 14px;
-            font-weight: 600;
+        /* Mensaje de error */
+        .login-error {
+            color: var(--neon-red);
+            font-size: 13px;
+            margin-top: 12px;
+            display: none;
+            padding: 10px;
+            background: rgba(255,45,85,0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(255,45,85,0.2);
         }
     </style>
 </head>
 <body>
+
 <!-- Splash Screen -->
 <div id="splash" class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#0A0F1C]">
     <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjDWdbCn4v1g5HM9irFbXMB-MRPhG0Kx4cRQjf1tdqZirp8hLQAWajka7vJkAhm8pOXLW04O-txJQwfcF7l_OLiDhd3ZGHKglr1c4M3oJfUE6gVRDpVakRCEpenWW-WMdlzUku0GDK4fzaGbnYfCV_BOSj8XQ0zOrdDZ5PnERYv0pmE6XAQdJ2YIGZIEbOv/s320/upscalemedia-transformed%20-%202026-05-05T143843.230.png" class="w-32 mb-6">
     <h1 class="text-3xl font-extrabold text-[#FF2D55] tracking-tight">TickiMochi</h1>
 </div>
 
-<!-- Login Screen -->
+<!-- Login Screen con Google OAuth -->
 <div id="loginScreen" class="fixed inset-0 z-[9998] flex items-center justify-center bg-[#0A0F1C]/95 backdrop-blur-md hidden">
-    <div class="bg-[#1F2937] p-10 rounded-[30px] border border-white/10 shadow-2xl w-[350px] text-center">
-        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjDWdbCn4v1g5HM9irFbXMB-MRPhG0Kx4cRQjf1tdqZirp8hLQAWajka7vJkAhm8pOXLW04O-txJQwfcF7l_OLiDhd3ZGHKglr1c4M3oJfUE6gVRDpVakRCEpenWW-WMdlzUku0GDK4fzaGbnYfCV_BOSj8XQ0zOrdDZ5PnERYv0pmE6XAQdJ2YIGZIEbOv/s320/upscalemedia-transformed%20-%202026-05-05T143843.230.png" 
-        class="w-20 mx-auto mb-6">
-        <h2 class="text-2xl font-extrabold mb-2">Bienvenido</h2>
+    <div class="bg-[#1F2937] p-10 rounded-[30px] border border-white/10 shadow-2xl w-[360px] text-center">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjDWdbCn4v1g5HM9irFbXMB-MRPhG0Kx4cRQjf1tdqZirp8hLQAWajka7vJkAhm8pOXLW04O-txJQwfcF7l_OLiDhd3ZGHKglr1c4M3oJfUE6gVRDpVakRCEpenWW-WMdlzUku0GDK4fzaGbnYfCV_BOSj8XQ0zOrdDZ5PnERYv0pmE6XAQdJ2YIGZIEbOv/s320/upscalemedia-transformed%20-%202026-05-05T143843.230.png"
+             class="w-16 mx-auto mb-5">
+        <h2 class="text-2xl font-extrabold mb-1">Bienvenido</h2>
         <p class="text-gray-400 text-sm mb-8">Inicia sesión para continuar</p>
         <div id="google-signin-button"></div>
+        <p id="login-error" class="login-error">
+            ⚠️ Hubo un problema al iniciar sesión. Intenta de nuevo.
+        </p>
     </div>
 </div>
 
-    <nav class="glass-nav fixed top-0 w-full z-50">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <div class="flex items-center gap-3 cursor-pointer" onclick="showSection('home')">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjDWdbCn4v1g5HM9irFbXMB-MRPhG0Kx4cRQjf1tdqZirp8hLQAWajka7vJkAhm8pOXLW04O-txJQwfcF7l_OLiDhd3ZGHKglr1c4M3oJfUE6gVRDpVakRCEpenWW-WMdlzUku0GDK4fzaGbnYfCV_BOSj8XQ0zOrdDZ5PnERYv0pmE6XAQdJ2YIGZIEbOv/s320/upscalemedia-transformed%20-%202026-05-05T143843.230.png" alt="Logo TickiMochi" class="h-12 w-auto object-contain">
-                <span class="text-2xl font-extrabold tracking-tighter text-[#FF2D55]">TickiMochi</span>
-            </div>
-            <div class="hidden md:flex items-center gap-8 font-medium">
-                <a href="#" onclick="showSection('home')" class="hover:text-[#FF2D55] transition">Inicio</a>
-                <a href="#" onclick="showSection('events')" class="hover:text-[#FF2D55] transition">Eventos</a>
-                <a href="#" class="hover:text-[#FF2D55] transition">Entradas</a>
-                <a href="#" class="hover:text-[#FF2D55] transition">Perfil</a>
-            </div>
-            <div id="auth-container" class="flex items-center gap-4">
-                <button id="connect-btn" class="btn-primary px-6 py-2 text-sm font-bold">CONECTAR</button>
-                <div id="user-menu" class="user-dropdown hidden">
-                    <div class="user-profile-btn" onclick="toggleDropdown()">
-                        <img id="user-avatar" src="" alt="Usuario">
-                        <span id="user-name"></span>
-                        <span>▼</span>
-                    </div>
-                    <div class="dropdown-content">
-                        <a onclick="showSection('home')">Mi Perfil</a>
-                        <a onclick="showSection('home')">Mis Entradas</a>
-                        <a onclick="logoutUser()">Cerrar Sesión</a>
-                    </div>
+<!-- NAV -->
+<nav class="glass-nav fixed top-0 w-full z-50">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <div class="flex items-center gap-3 cursor-pointer" onclick="showSection('home')">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjDWdbCn4v1g5HM9irFbXMB-MRPhG0Kx4cRQjf1tdqZirp8hLQAWajka7vJkAhm8pOXLW04O-txJQwfcF7l_OLiDhd3ZGHKglr1c4M3oJfUE6gVRDpVakRCEpenWW-WMdlzUku0GDK4fzaGbnYfCV_BOSj8XQ0zOrdDZ5PnERYv0pmE6XAQdJ2YIGZIEbOv/s320/upscalemedia-transformed%20-%202026-05-05T143843.230.png" alt="Logo" class="h-12 w-auto object-contain">
+            <span class="text-2xl font-extrabold tracking-tighter text-[#FF2D55]">TickiMochi</span>
+        </div>
+        <div class="hidden md:flex items-center gap-8 font-medium">
+            <a href="#" onclick="showSection('home')" class="hover:text-[#FF2D55] transition">Inicio</a>
+            <a href="#" onclick="showSection('events')" class="hover:text-[#FF2D55] transition">Eventos</a>
+            <a href="#" class="hover:text-[#FF2D55] transition">Entradas</a>
+            <a href="#" class="hover:text-[#FF2D55] transition">Perfil</a>
+        </div>
+        <div id="auth-container" class="flex items-center gap-4">
+            <button id="connect-btn" onclick="document.getElementById('loginScreen').classList.remove('hidden')" class="btn-primary px-6 py-2 text-sm font-bold">CONECTAR</button>
+            <div id="user-menu" class="user-dropdown hidden">
+                <div class="user-profile-btn" onclick="toggleDropdown()">
+                    <img id="user-avatar" src="" alt="Usuario">
+                    <span id="user-name"></span>
+                    <span>▼</span>
+                </div>
+                <div class="dropdown-content">
+                    <a onclick="showSection('home')">Mi Perfil</a>
+                    <a onclick="showSection('home')">Mis Entradas</a>
+                    <a onclick="logoutUser()">Cerrar Sesión</a>
                 </div>
             </div>
         </div>
-    </nav>
+    </div>
+</nav>
 
-    <main class="pt-20">
-        
-        <section id="home" class="max-w-7xl mx-auto px-6 py-12">
-            <div class="relative h-[500px] rounded-[40px] overflow-hidden mb-16">
-                <img src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?auto=format&fit=crop&q=80&w=2070" class="w-full h-full object-cover brightness-50" alt="Hero Image">
-                <div class="absolute inset-0 flex flex-col justify-center px-12 bg-gradient-to-r from-black/80 to-transparent">
-                    <h1 class="text-6xl font-black mb-1 leading-tight">Reggaeton Lima Festival</h1>
-                    <span class="text-[#FF2D55] text-4xl font-extrabold mb-4">Sábado 28 de marzo, 20.00</span>
-                    <p class="text-gray-300 text-xl max-w-lg mb-8">Estadio Nacional del Perú, Lima</p>
-                    <button onclick="buyFeaturedTicket(1)" class="btn-primary w-fit px-10 py-4 text-lg font-bold">Comprar ticket</button>
+<main class="pt-20">
+
+    <!-- HOME -->
+    <section id="home" class="max-w-7xl mx-auto px-6 py-12">
+        <div class="relative h-[500px] rounded-[40px] overflow-hidden mb-16">
+            <img src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?auto=format&fit=crop&q=80&w=2070" class="w-full h-full object-cover brightness-50" alt="Hero">
+            <div class="absolute inset-0 flex flex-col justify-center px-12 bg-gradient-to-r from-black/80 to-transparent">
+                <h1 class="text-6xl font-black mb-1 leading-tight">Reggaeton Lima Festival</h1>
+                <span class="text-[#FF2D55] text-4xl font-extrabold mb-4">Sábado 28 de marzo, 20.00</span>
+                <p class="text-gray-300 text-xl max-w-lg mb-8">Estadio Nacional del Perú, Lima</p>
+                <button onclick="buyFeaturedTicket(1)" class="btn-primary w-fit px-10 py-4 text-lg font-bold">Comprar ticket</button>
+            </div>
+        </div>
+        <div class="flex justify-between items-end mb-8">
+            <h2 class="text-3xl font-bold">Próximos Eventos</h2>
+            <a href="#" onclick="showSection('events')" class="text-[#FF2D55] font-semibold hover:underline">Ver todos</a>
+        </div>
+        <div id="home-events-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+    </section>
+
+    <!-- EVENTS -->
+    <section id="events" class="max-w-7xl mx-auto px-6 py-12 hidden-section">
+        <h2 class="text-4xl font-bold mb-10 text-center">Todos los Conciertos</h2>
+        <div id="all-events-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+    </section>
+
+    <!-- DETAIL -->
+    <section id="detail" class="max-w-7xl mx-auto px-6 py-12 hidden-section">
+        <button onclick="showSection('events')" class="mb-6 flex items-center gap-2 text-gray-400 hover:text-white transition">
+            <span>← Volver</span>
+        </button>
+        <div id="event-detail-content"></div>
+    </section>
+
+    <!-- TICKETS -->
+    <section id="tickets" class="max-w-2xl mx-auto px-6 py-12 hidden-section">
+        <div class="bg-[#1F2937] p-8 rounded-[30px] border border-white/10 shadow-2xl">
+            <h2 class="text-3xl font-bold mb-2 text-center">Elegir tus Entradas</h2>
+            <p id="ticket-event-name" class="text-[#FF2D55] text-center font-semibold mb-8 uppercase tracking-widest text-sm"></p>
+            <div class="space-y-4 mb-8">
+                <div class="flex items-center justify-between p-4 bg-black/20 rounded-2xl border border-white/5">
+                    <div><p class="font-bold">PLATINUM</p><p class="text-xs text-gray-400">S/ 5.00</p></div>
+                    <div class="flex items-center gap-4">
+                        <button onclick="updateQty('platinum', -1)" class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">-</button>
+                        <span id="qty-platinum">0</span>
+                        <button onclick="updateQty('platinum', 1)" class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">+</button>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between p-4 bg-black/20 rounded-2xl border border-white/5">
+                    <div><p class="font-bold">VIP</p><p class="text-xs text-gray-400">S/ 3.50</p></div>
+                    <div class="flex items-center gap-4">
+                        <button onclick="updateQty('vip', -1)" class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">-</button>
+                        <span id="qty-vip">0</span>
+                        <button onclick="updateQty('vip', 1)" class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">+</button>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between p-4 bg-black/20 rounded-2xl border border-white/5">
+                    <div><p class="font-bold">GENERAL</p><p class="text-xs text-gray-400">S/ 2.50</p></div>
+                    <div class="flex items-center gap-4">
+                        <button onclick="updateQty('general', -1)" class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">-</button>
+                        <span id="qty-general">0</span>
+                        <button onclick="updateQty('general', 1)" class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">+</button>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between p-4 bg-black/20 rounded-2xl border border-white/5">
+                    <div><p class="font-bold">OCCIDENTE</p><p class="text-xs text-gray-400">S/ 3.00</p></div>
+                    <div class="flex items-center gap-4">
+                        <button onclick="updateQty('occidente', -1)" class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">-</button>
+                        <span id="qty-occidente">0</span>
+                        <button onclick="updateQty('occidente', 1)" class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">+</button>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between p-4 bg-black/20 rounded-2xl border border-white/5">
+                    <div><p class="font-bold">TRIBUNA NORTE</p><p class="text-xs text-gray-400">S/ 2.00</p></div>
+                    <div class="flex items-center gap-4">
+                        <button onclick="updateQty('tribunaNorte', -1)" class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">-</button>
+                        <span id="qty-tribunaNorte">0</span>
+                        <button onclick="updateQty('tribunaNorte', 1)" class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">+</button>
+                    </div>
                 </div>
             </div>
-
-            <div class="flex justify-between items-end mb-8">
-                <h2 class="text-3xl font-bold">Próximos Eventos</h2>
-                <a href="#" onclick="showSection('events')" class="text-[#FF2D55] font-semibold hover:underline">Ver todos</a>
+            <div class="flex justify-between items-center mb-8 px-2">
+                <span class="text-gray-400">Total a pagar:</span>
+                <span id="total-price" class="text-2xl font-bold text-[#FF2D55]">S/ 0.00</span>
             </div>
+            <button onclick="goToCheckout()" class="btn-primary w-full py-4 text-lg font-bold uppercase tracking-wider">Continuar al Pago</button>
+        </div>
+    </section>
 
-            <div id="home-events-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                </div>
-        </section>
-
-        <section id="events" class="max-w-7xl mx-auto px-6 py-12 hidden-section">
-            <h2 class="text-4xl font-bold mb-10 text-center">Todos los Conciertos</h2>
-            <div id="all-events-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                </div>
-        </section>
-
-        <section id="detail" class="max-w-7xl mx-auto px-6 py-12 hidden-section">
-            <button onclick="showSection('events')" class="mb-6 flex items-center gap-2 text-gray-400 hover:text-white transition">
-                <span>← Volver</span>
-            </button>
-            <div id="event-detail-content">
-                </div>
-        </section>
-
-        <section id="tickets" class="max-w-2xl mx-auto px-6 py-12 hidden-section">
-            <div class="bg-[#1F2937] p-8 rounded-[30px] border border-white/10 shadow-2xl">
-                <h2 class="text-3xl font-bold mb-2 text-center">Elegir tus Entradas</h2>
-                <p id="ticket-event-name" class="text-[#FF2D55] text-center font-semibold mb-8 uppercase tracking-widest text-sm"></p>
-                
-                <div class="space-y-4 mb-8">
-                    <div class="flex items-center justify-between p-4 bg-black/20 rounded-2xl border border-white/5">
-                        <div>
-                            <p class="font-bold">PLATINUM</p>
-                            <p class="text-xs text-gray-400">S/ 5.00</p>
-                        </div>
+    <!-- CHECKOUT -->
+    <section id="checkout" class="max-w-7xl mx-auto px-6 py-12 hidden-section">
+        <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div>
+                <h2 class="text-3xl font-bold mb-8">Método de Pago</h2>
+                <div class="space-y-4">
+                    <label class="flex items-center justify-between p-5 bg-white/5 border border-[#FF2D55] rounded-2xl cursor-pointer">
                         <div class="flex items-center gap-4">
-                            <button onclick="updateQty('platinum', -1)" class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">-</button>
-                            <span id="qty-platinum">0</span>
-                            <button onclick="updateQty('platinum', 1)" class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">+</button>
+                            <div class="w-12 h-8 bg-blue-600 rounded flex items-center justify-center font-bold text-[10px]">VISA</div>
+                            <span class="font-bold">**** **** **** 7540</span>
                         </div>
-                    </div>
-                    <div class="flex items-center justify-between p-4 bg-black/20 rounded-2xl border border-white/5">
-                        <div>
-                            <p class="font-bold">VIP</p>
-                            <p class="text-xs text-gray-400">S/ 3.50</p>
-                        </div>
+                        <input type="radio" name="pay" checked class="accent-[#FF2D55]">
+                    </label>
+                    <label class="flex items-center justify-between p-5 bg-white/5 border border-white/10 rounded-2xl cursor-pointer hover:border-[#FF2D55]/50 transition">
                         <div class="flex items-center gap-4">
-                            <button onclick="updateQty('vip', -1)" class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">-</button>
-                            <span id="qty-vip">0</span>
-                            <button onclick="updateQty('vip', 1)" class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">+</button>
+                            <div class="w-12 h-8 bg-blue-400 rounded flex items-center justify-center font-bold text-[10px]">PayPal</div>
+                            <span class="font-bold">user@mail.com</span>
                         </div>
-                    </div>
-                    <div class="flex items-center justify-between p-4 bg-black/20 rounded-2xl border border-white/5">
-                        <div>
-                            <p class="font-bold">GENERAL</p>
-                            <p class="text-xs text-gray-400">S/ 2.50</p>
-                        </div>
+                        <input type="radio" name="pay" class="accent-[#FF2D55]">
+                    </label>
+                    <label class="flex items-center justify-between p-5 bg-white/5 border border-white/10 rounded-2xl cursor-pointer hover:border-[#FF2D55]/50 transition">
                         <div class="flex items-center gap-4">
-                            <button onclick="updateQty('general', -1)" class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">-</button>
-                            <span id="qty-general">0</span>
-                            <button onclick="updateQty('general', 1)" class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">+</button>
+                            <div class="w-12 h-8 bg-purple-600 rounded flex items-center justify-center font-bold text-[10px]">YAPE</div>
+                            <span class="font-bold">977859023</span>
                         </div>
-                    </div>
-                    <div class="flex items-center justify-between p-4 bg-black/20 rounded-2xl border border-white/5">
-                        <div>
-                            <p class="font-bold">OCCIDENTE</p>
-                            <p class="text-xs text-gray-400">S/ 3.00</p>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <button onclick="updateQty('occidente', -1)" class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">-</button>
-                            <span id="qty-occidente">0</span>
-                            <button onclick="updateQty('occidente', 1)" class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">+</button>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-between p-4 bg-black/20 rounded-2xl border border-white/5">
-                        <div>
-                            <p class="font-bold">TRIBUNA NORTE</p>
-                            <p class="text-xs text-gray-400">S/ 2.00</p>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <button onclick="updateQty('tribunaNorte', -1)" class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">-</button>
-                            <span id="qty-tribunaNorte">0</span>
-                            <button onclick="updateQty('tribunaNorte', 1)" class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">+</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex justify-between items-center mb-8 px-2">
-                    <span class="text-gray-400">Total a pagar:</span>
-                    <span id="total-price" class="text-2xl font-bold text-[#FF2D55]">S/ 0.00</span>
-                    <span id="final-total" class="hidden">S/ 0.00</span>
-                </div>
-
-                <button onclick="goToCheckout()" class="btn-primary w-full py-4 text-lg font-bold uppercase tracking-wider">Continuar al Pago</button>
-            </div>
-        </section>
-
-        <section id="checkout" class="max-w-7xl mx-auto px-6 py-12 hidden-section">
-            <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
-                <div>
-                    <h2 class="text-3xl font-bold mb-8">Método de Pago</h2>
-                    <div class="space-y-4">
-                        <label class="flex items-center justify-between p-5 bg-white/5 border border-[#FF2D55] rounded-2xl cursor-pointer">
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-8 bg-blue-600 rounded flex items-center justify-center font-bold text-[10px]">VISA</div>
-                                <span class="font-bold">**** **** **** 7540</span>
-                            </div>
-                            <input type="radio" name="pay" checked class="accent-[#FF2D55]">
-                        </label>
-                        <label class="flex items-center justify-between p-5 bg-white/5 border border-white/10 rounded-2xl cursor-pointer hover:border-[#FF2D55]/50 transition">
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-8 bg-blue-400 rounded flex items-center justify-center font-bold text-[10px]">PayPal</div>
-                                <span class="font-bold">user@mail.com</span>
-                            </div>
-                            <input type="radio" name="pay" class="accent-[#FF2D55]">
-                        </label>
-                        <label class="flex items-center justify-between p-5 bg-white/5 border border-white/10 rounded-2xl cursor-pointer hover:border-[#FF2D55]/50 transition">
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-8 bg-purple-600 rounded flex items-center justify-center font-bold text-[10px]">YAPE</div>
-                                <span class="font-bold">977859023</span>
-                            </div>
-                            <input type="radio" name="pay" class="accent-[#FF2D55]">
-                        </label>
-                    </div>
-                </div>
-
-                <div class="bg-black/40 p-8 rounded-[30px] border border-white/5 h-fit">
-                    <h3 class="text-xl font-bold mb-6">Resumen de Compra</h3>
-                    <div id="checkout-items" class="space-y-4 mb-6">
-                        </div>
-                    <hr class="border-white/10 mb-6">
-                    <div class="flex justify-between text-xl font-bold">
-                        <span>Total:</span>
-                        <span id="checkout-final-total">S/ 0.00</span>
-                    </div>
-                    <button onclick="processPayment()" class="btn-primary w-full py-4 mt-8 text-lg font-bold">PAGAR AHORA</button>
+                        <input type="radio" name="pay" class="accent-[#FF2D55]">
+                    </label>
                 </div>
             </div>
-        </section>
-
-        <section id="processing" class="max-w-7xl mx-auto px-6 py-24 hidden-section text-center">
-            <div class="flex flex-col items-center gap-6">
-                <div class="loader"></div>
-                <h2 class="text-3xl font-bold">Procesando tu pago...</h2>
-                <p class="text-gray-400">Por favor no cierres la ventana.</p>
-            </div>
-        </section>
-
-        <section id="success" class="max-w-7xl mx-auto px-6 py-12 hidden-section text-center">
-            <div class="max-w-md mx-auto bg-gradient-to-b from-[#1F2937] to-black p-10 rounded-[40px] border border-white/10">
-                <div class="mb-8">
-                    <img id="qr-image" src="" alt="QR" class="w-48 h-48 mx-auto">
+            <div class="bg-black/40 p-8 rounded-[30px] border border-white/5 h-fit">
+                <h3 class="text-xl font-bold mb-6">Resumen de Compra</h3>
+                <div id="checkout-items" class="space-y-4 mb-6"></div>
+                <hr class="border-white/10 mb-6">
+                <div class="flex justify-between text-xl font-bold">
+                    <span>Total:</span>
+                    <span id="checkout-final-total">S/ 0.00</span>
                 </div>
-                <h2 class="text-2xl font-bold mb-4">¡Tu compra ha sido confirmada!</h2>
-                <p class="text-gray-400 mb-8">Hemos enviado los detalles a tu correo electrónico registrado.</p>
-                <div class="text-left bg-white/5 p-4 rounded-2xl mb-8">
-                    <p class="text-xs text-gray-500">Ticket ID: #TM-882910</p>
-                    <p id="success-event-info" class="font-bold text-[#FF2D55]"></p>
-                </div>
-                <button onclick="showSection('home')" class="w-full py-4 rounded-full border border-white/20 hover:bg-white hover:text-black transition font-bold">Ver mis entradas</button>
-                <button onclick="openSurvey()" class="btn-primary w-full py-3 mt-4 text-sm">
-    Evaluar experiencia
-</button>
+                <button onclick="processPayment()" class="btn-primary w-full py-4 mt-8 text-lg font-bold">PAGAR AHORA</button>
             </div>
-            
-        </section>
+        </div>
+    </section>
 
-        <section id="error" class="max-w-7xl mx-auto px-6 py-12 hidden-section text-center">
-            <div class="max-w-md mx-auto">
-                <div class="text-6xl mb-6">😕</div>
-                <h2 class="text-3xl font-bold mb-4 text-[#FF2D55]">Lo sentimos</h2>
-                <p class="text-gray-400 mb-8">No se han encontrado entradas disponibles para esta categoría en este momento.</p>
-                <button onclick="showSection('events')" class="btn-primary px-8 py-3 font-bold uppercase">Volver a eventos</button>
+    <!-- PROCESSING -->
+    <section id="processing" class="max-w-7xl mx-auto px-6 py-24 hidden-section text-center">
+        <div class="flex flex-col items-center gap-6">
+            <div class="loader"></div>
+            <h2 class="text-3xl font-bold">Procesando tu pago...</h2>
+            <p class="text-gray-400">Por favor no cierres la ventana.</p>
+        </div>
+    </section>
+
+    <!-- SUCCESS -->
+    <section id="success" class="max-w-7xl mx-auto px-6 py-12 hidden-section text-center">
+        <div class="max-w-md mx-auto bg-gradient-to-b from-[#1F2937] to-black p-10 rounded-[40px] border border-white/10">
+            <div class="mb-8">
+                <img id="qr-image" src="" alt="QR" class="w-48 h-48 mx-auto">
             </div>
-        </section>
+            <h2 class="text-2xl font-bold mb-4">¡Tu compra ha sido confirmada!</h2>
+            <p class="text-gray-400 mb-8">Hemos enviado los detalles a tu correo electrónico registrado.</p>
+            <div class="text-left bg-white/5 p-4 rounded-2xl mb-8">
+                <p class="text-xs text-gray-500">Ticket ID: #TM-882910</p>
+                <p id="success-event-info" class="font-bold text-[#FF2D55]"></p>
+            </div>
+            <button onclick="showSection('home')" class="w-full py-4 rounded-full border border-white/20 hover:bg-white hover:text-black transition font-bold">Ver mis entradas</button>
+            <button onclick="openSurvey()" class="btn-primary w-full py-3 mt-4 text-sm">Evaluar experiencia</button>
+        </div>
+    </section>
 
-    </main>
+    <!-- ERROR -->
+    <section id="error" class="max-w-7xl mx-auto px-6 py-12 hidden-section text-center">
+        <div class="max-w-md mx-auto">
+            <div class="text-6xl mb-6">😕</div>
+            <h2 class="text-3xl font-bold mb-4 text-[#FF2D55]">Lo sentimos</h2>
+            <p class="text-gray-400 mb-8">No se han encontrado entradas disponibles para esta categoría en este momento.</p>
+            <button onclick="showSection('events')" class="btn-primary px-8 py-3 font-bold uppercase">Volver a eventos</button>
+        </div>
+    </section>
 
-    <footer class="mt-20 py-12 border-t border-white/5 text-center text-gray-500 text-sm">
-        <p>© 2026 TickiMochi. Hecho para amantes de la música.</p>
-    </footer>
+</main>
 
-    <script>
-        let currentUser = null;
-        const CLIENT_ID = '273683489958-p21rpstbfqr5ct8lirpjlnq4dee459vq.apps.googleusercontent.com';
+<footer class="mt-20 py-12 border-t border-white/5 text-center text-gray-500 text-sm">
+    <p>© 2026 TickiMochi. Hecho para amantes de la música.</p>
+</footer>
 
-        // --- Mock Data ---
-        const eventsData = [
-            { id: 1, name: "Reggaeton Lima Festival", date: "Sábado 28 de Marzo", venue: "Estadio Nacional", img: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&q=80&w=2070", price: 150 },
-            { id: 2, name: "Brightlight Music Fest", date: "Viernes 12 de Junio", venue: "Arena 1", img: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&q=80&w=2070", price: 200 },
-            { id: 3, name: "Electronic Paradise", date: "Sábado 05 de Julio", venue: "Club Cultural", img: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=2070", price: 180 },
-            { id: 4, name: "Rock Symphony", date: "Jueves 20 de Agosto", venue: "Gran Teatro Nacional", img: "https://images.unsplash.com/photo-1459749411177-042180ce673c?auto=format&fit=crop&q=80&w=2070", price: 120 },
-            { id: 5, name: "K-Pop World Tour", date: "Domingo 15 de Septiembre", venue: "Jockey Club", img: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&q=80&w=2070", price: 350 },
-            { id: 6, name: "Jazz Under the Moon", date: "Viernes 02 de Octubre", venue: "Barranco Arena", img: "https://images.unsplash.com/photo-1514525253344-f814d074e015?auto=format&fit=crop&q=80&w=2070", price: 90 }
-        ];
+<script>
+    let currentUser = null;
 
-        // --- State ---
-        let currentEvent = null;
-        let cart = { platinum: 0, vip: 0, general: 0, occidente: 0, tribunaNorte: 0 };
-        const prices = { platinum: 5, vip: 3.5, general: 2.5, occidente: 3, tribunaNorte: 2 };
+    // =====================================================
+    // ⚠️  INSTRUCCIONES PARA CONFIGURAR GOOGLE OAUTH
+    // =====================================================
+    // 1. Ve a: https://console.cloud.google.com
+    // 2. Crea un proyecto → APIs & Services → Credentials
+    // 3. Crea un OAuth Client ID (tipo: Aplicación web)
+    // 4. En "Authorized JavaScript origins" agrega:
+    //       https://fran15975321-beep.github.io
+    // 5. Pega tu Client ID abajo reemplazando AQUI_TU_CLIENT_ID
+    // =====================================================
+    const CLIENT_ID = 'AQUI_TU_CLIENT_ID.apps.googleusercontent.com';
 
-        // --- Google Sign-In Setup ---
-        function initializeGoogleSignIn() {
-            google.accounts.id.initialize({
-                client_id: CLIENT_ID,
-                callback: handleCredentialResponse
-            });
+    // --- Mock Data ---
+    const eventsData = [
+        { id: 1, name: "Reggaeton Lima Festival",  date: "Sábado 28 de Marzo",      venue: "Estadio Nacional",    img: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&q=80&w=2070", price: 150 },
+        { id: 2, name: "Brightlight Music Fest",   date: "Viernes 12 de Junio",     venue: "Arena 1",             img: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&q=80&w=2070", price: 200 },
+        { id: 3, name: "Electronic Paradise",      date: "Sábado 05 de Julio",      venue: "Club Cultural",       img: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=2070", price: 180 },
+        { id: 4, name: "Rock Symphony",            date: "Jueves 20 de Agosto",     venue: "Gran Teatro Nacional",img: "https://images.unsplash.com/photo-1459749411177-042180ce673c?auto=format&fit=crop&q=80&w=2070", price: 120 },
+        { id: 5, name: "K-Pop World Tour",         date: "Domingo 15 de Septiembre",venue: "Jockey Club",         img: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&q=80&w=2070", price: 350 },
+        { id: 6, name: "Jazz Under the Moon",      date: "Viernes 02 de Octubre",   venue: "Barranco Arena",      img: "https://images.unsplash.com/photo-1514525253344-f814d074e015?auto=format&fit=crop&q=80&w=2070", price: 90  }
+    ];
 
-            google.accounts.id.renderButton(
-                document.getElementById('google-signin-button'),
-                { 
-                    theme: 'dark',
-                    size: 'large',
-                    width: '100%'
-                }
-            );
+    let currentEvent = null;
+    let cart = { platinum: 0, vip: 0, general: 0, occidente: 0, tribunaNorte: 0 };
+    const prices = { platinum: 5, vip: 3.5, general: 2.5, occidente: 3, tribunaNorte: 2 };
+
+    // --- Google Sign-In ---
+    function initializeGoogleSignIn() {
+        // Esperar a que el script de Google cargue
+        if (typeof google === 'undefined') {
+            setTimeout(initializeGoogleSignIn, 300);
+            return;
         }
 
-        function handleCredentialResponse(response) {
+        google.accounts.id.initialize({
+            client_id: CLIENT_ID,
+            callback: handleCredentialResponse,
+            auto_select: false,
+            cancel_on_tap_outside: false
+        });
+
+        google.accounts.id.renderButton(
+            document.getElementById('google-signin-button'),
+            {
+                theme: 'outline',
+                size: 'large',
+                width: 280,
+                text: 'signin_with',
+                shape: 'pill',
+                logo_alignment: 'left'
+            }
+        );
+    }
+
+    function handleCredentialResponse(response) {
+        try {
             const base64Url = response.credential.split('.')[1];
             const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-            const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-            }).join(''));
-
+            const jsonPayload = decodeURIComponent(
+                atob(base64).split('').map(c =>
+                    '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+                ).join('')
+            );
             const userData = JSON.parse(jsonPayload);
+
             currentUser = {
-                email: userData.email,
-                name: userData.name,
+                email:   userData.email,
+                name:    userData.name,
                 picture: userData.picture
             };
 
             localStorage.setItem('tickimochi_user', JSON.stringify(currentUser));
             updateUserUI();
             document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('login-error').style.display = 'none';
+        } catch (e) {
+            document.getElementById('login-error').style.display = 'block';
         }
+    }
 
-        function updateUserUI() {
-            if (currentUser) {
-                document.getElementById('connect-btn').classList.add('hidden');
-                document.getElementById('user-menu').classList.remove('hidden');
-                document.getElementById('user-avatar').src = currentUser.picture;
-                document.getElementById('user-name').textContent = currentUser.name.split(' ')[0];
-            } else {
-                document.getElementById('connect-btn').classList.remove('hidden');
-                document.getElementById('user-menu').classList.add('hidden');
-            }
+    // --- User UI ---
+    function updateUserUI() {
+        if (currentUser) {
+            document.getElementById('connect-btn').classList.add('hidden');
+            document.getElementById('user-menu').classList.remove('hidden');
+            document.getElementById('user-avatar').src = currentUser.picture;
+            document.getElementById('user-name').textContent = currentUser.name.split(' ')[0];
+        } else {
+            document.getElementById('connect-btn').classList.remove('hidden');
+            document.getElementById('user-menu').classList.add('hidden');
         }
+    }
 
-        function toggleDropdown() {
-            document.getElementById('user-menu').classList.toggle('active');
+    function toggleDropdown() {
+        document.getElementById('user-menu').classList.toggle('active');
+    }
+
+    function logoutUser() {
+        if (typeof google !== 'undefined') {
+            google.accounts.id.disableAutoSelect();
         }
+        currentUser = null;
+        localStorage.removeItem('tickimochi_user');
+        updateUserUI();
+        showSection('home');
+        document.getElementById('user-menu').classList.remove('active');
+    }
 
-        function logoutUser() {
-            currentUser = null;
-            localStorage.removeItem('tickimochi_user');
-            updateUserUI();
-            showSection('home');
+    document.addEventListener('click', function(event) {
+        if (!event.target.closest('.user-dropdown')) {
             document.getElementById('user-menu').classList.remove('active');
         }
+    });
 
-        // Cerrar dropdown al clickear fuera
-        document.addEventListener('click', function(event) {
-            const userMenu = document.getElementById('user-menu');
-            if (!event.target.closest('.user-dropdown')) {
-                userMenu.classList.remove('active');
-            }
+    // --- Navigation ---
+    function showSection(sectionId) {
+        if (!currentUser && sectionId !== 'home' && sectionId !== 'events' && sectionId !== 'detail') {
+            document.getElementById('loginScreen').classList.remove('hidden');
+            return;
+        }
+        document.querySelectorAll('section').forEach(s => s.classList.add('hidden-section'));
+        document.getElementById(sectionId).classList.remove('hidden-section');
+        window.scrollTo(0, 0);
+    }
+
+    function buyFeaturedTicket(id) {
+        if (!currentUser) {
+            document.getElementById('loginScreen').classList.remove('hidden');
+            return;
+        }
+        currentEvent = eventsData.find(e => e.id === id);
+        if (currentEvent) goToTickets();
+    }
+
+    // --- Rendering ---
+    function renderGrids() {
+        document.getElementById('home-events-grid').innerHTML = eventsData.slice(0, 4).map(createCardHtml).join('');
+        document.getElementById('all-events-grid').innerHTML = eventsData.map(createCardHtml).join('');
+    }
+
+    function createCardHtml(event) {
+        return `
+            <div class="event-card group cursor-pointer" onclick="viewDetail(${event.id})">
+                <div class="h-64 overflow-hidden relative">
+                    <img src="${event.img}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" alt="${event.name}">
+                    <div class="absolute bottom-4 left-4 bg-[#FF2D55] text-white text-xs font-bold px-3 py-1 rounded-full">DESTACADO</div>
+                </div>
+                <div class="p-6">
+                    <p class="text-xs text-[#FF2D55] font-bold mb-1 uppercase tracking-tighter">${event.date}</p>
+                    <h3 class="text-xl font-bold mb-2 group-hover:text-[#FF2D55] transition">${event.name}</h3>
+                    <div class="flex items-center gap-2 text-gray-400 text-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        ${event.venue}
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    function viewDetail(id) {
+        currentEvent = eventsData.find(e => e.id === id);
+        document.getElementById('event-detail-content').innerHTML = `
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="rounded-[30px] overflow-hidden shadow-2xl">
+                    <img src="${currentEvent.img}" class="w-full h-full object-cover" alt="">
+                </div>
+                <div>
+                    <span class="text-[#FF2D55] font-bold tracking-widest text-sm uppercase">Concierto confirmado</span>
+                    <h1 class="text-5xl font-black mt-2 mb-6">${currentEvent.name}</h1>
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center gap-4 text-gray-300">
+                            <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-[#FF2D55]">📅</div>
+                            <div>
+                                <p class="text-sm text-gray-500">Fecha y Hora</p>
+                                <p class="font-semibold">${currentEvent.date}, 20:00</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 text-gray-300">
+                            <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-[#FF2D55]">📍</div>
+                            <div>
+                                <p class="text-sm text-gray-500">Ubicación</p>
+                                <p class="font-semibold">${currentEvent.venue}, Lima</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-10">
+                        <h4 class="font-bold mb-2">Descripción</h4>
+                        <p class="text-gray-400 leading-relaxed">Prepárate para una noche inolvidable. El festival más grande llega a la ciudad con los mejores artistas internacionales en una producción de nivel mundial. No te pierdas la preventa exclusiva.</p>
+                    </div>
+                    <div class="flex items-center gap-6">
+                        <button onclick="goToTickets()" class="btn-primary flex-1 py-4 text-lg font-bold">COMPRAR ENTRADAS</button>
+                        <button class="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 transition">❤️</button>
+                    </div>
+                </div>
+            </div>
+        `;
+        showSection('detail');
+    }
+
+    // --- Cart ---
+    function goToTickets() {
+        if (!currentUser) {
+            document.getElementById('loginScreen').classList.remove('hidden');
+            return;
+        }
+        document.getElementById('ticket-event-name').innerText = currentEvent.name;
+        resetCart();
+        showSection('tickets');
+    }
+
+    function resetCart() {
+        cart = { platinum: 0, vip: 0, general: 0, occidente: 0, tribunaNorte: 0 };
+        updateCartDisplay();
+    }
+
+    function updateQty(type, delta) {
+        cart[type] = Math.max(0, cart[type] + delta);
+        updateCartDisplay();
+    }
+
+    function updateCartDisplay() {
+        ['platinum','vip','general','occidente','tribunaNorte'].forEach(t => {
+            document.getElementById(`qty-${t}`).innerText = cart[t];
         });
+        const total = Object.keys(cart).reduce((sum, t) => sum + cart[t] * prices[t], 0);
+        document.getElementById('total-price').innerText = `S/ ${total.toFixed(2)}`;
+        document.getElementById('checkout-final-total').innerText = `S/ ${total.toFixed(2)}`;
+    }
 
-        // --- Navigation ---
-        function showSection(sectionId) {
-            if (!currentUser && sectionId !== 'home' && sectionId !== 'events' && sectionId !== 'detail') {
-                alert('Debes iniciar sesión para acceder a esta sección');
-                return;
+    function goToCheckout() {
+        const total = Object.keys(cart).reduce((sum, t) => sum + cart[t] * prices[t], 0);
+        if (total === 0) { alert("Selecciona al menos una entrada."); return; }
+
+        document.getElementById('checkout-items').innerHTML = Object.keys(cart)
+            .filter(t => cart[t] > 0)
+            .map(t => `
+                <div class="flex justify-between text-sm">
+                    <span class="text-gray-400">${cart[t]}x Entrada ${t.toUpperCase()}</span>
+                    <span>S/ ${(cart[t] * prices[t]).toFixed(2)}</span>
+                </div>
+            `).join('');
+        showSection('checkout');
+    }
+
+    function processPayment() {
+        showSection('processing');
+        setTimeout(() => {
+            if (Math.random() < 0.8) {
+                document.getElementById('qr-image').src = 'https://lh3.googleusercontent.com/d/1nVZZw3JqBKyHWYYatrgaWIvNMoOzpPJX=w220';
+                document.getElementById('success-event-info').innerText = `${currentEvent.name} - ${currentEvent.date}`;
+                showSection('success');
+                localStorage.setItem('last_purchase', JSON.stringify({
+                    event: currentEvent.name,
+                    date: new Date().toLocaleDateString(),
+                    total: document.getElementById('checkout-final-total').innerText
+                }));
+            } else {
+                showSection('error');
             }
-            document.querySelectorAll('section').forEach(s => s.classList.add('hidden-section'));
-            const target = document.getElementById(sectionId);
-            target.classList.remove('hidden-section');
-            window.scrollTo(0, 0);
+        }, 3000);
+    }
+
+    function openSurvey() {
+        window.open("https://docs.google.com/forms/d/e/1FAIpQLSdbT4Q5FvtCqOYUZCKknCnr1t1RJTyOiPUusaDfQSo9Z9mtpg/viewform?usp=header", "_blank");
+    }
+
+    // --- Init ---
+    document.body.classList.add('loading');
+    window.onload = () => {
+        renderGrids();
+        initializeGoogleSignIn();
+
+        const savedUser = localStorage.getItem('tickimochi_user');
+        if (savedUser) {
+            currentUser = JSON.parse(savedUser);
+            updateUserUI();
         }
 
-        // --- NUEVA FUNCIÓN: Ir directo a tickets desde el Hero ---
-        function buyFeaturedTicket(id) {
+        setTimeout(() => {
+            document.getElementById('splash').remove();
             if (!currentUser) {
                 document.getElementById('loginScreen').classList.remove('hidden');
-                return;
             }
-            currentEvent = eventsData.find(e => e.id === id);
-            if (currentEvent) {
-                goToTickets();
-            }
-        }
-
-        // --- Rendering ---
-        function renderGrids() {
-            const homeGrid = document.getElementById('home-events-grid');
-            const allGrid = document.getElementById('all-events-grid');
-            
-            homeGrid.innerHTML = eventsData.slice(0, 4).map(e => createCardHtml(e)).join('');
-            allGrid.innerHTML = eventsData.map(e => createCardHtml(e)).join('');
-        }
-
-        function createCardHtml(event) {
-            return `
-                <div class="event-card group cursor-pointer" onclick="viewDetail(${event.id})">
-                    <div class="h-64 overflow-hidden relative">
-                        <img src="${event.img}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" alt="${event.name}">
-                        <div class="absolute bottom-4 left-4 bg-[#FF2D55] text-white text-xs font-bold px-3 py-1 rounded-full">DESTACADO</div>
-                    </div>
-                    <div class="p-6">
-                        <p class="text-xs text-[#FF2D55] font-bold mb-1 uppercase tracking-tighter">${event.date}</p>
-                        <h3 class="text-xl font-bold mb-2 group-hover:text-[#FF2D55] transition">${event.name}</h3>
-                        <div class="flex items-center gap-2 text-gray-400 text-sm">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                            ${event.venue}
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        function viewDetail(id) {
-            currentEvent = eventsData.find(e => e.id === id);
-            const detailSection = document.getElementById('event-detail-content');
-            detailSection.innerHTML = `
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                    <div class="rounded-[30px] overflow-hidden shadow-2xl">
-                        <img src="${currentEvent.img}" class="w-full h-full object-cover" alt="">
-                    </div>
-                    <div>
-                        <span class="text-[#FF2D55] font-bold tracking-widest text-sm uppercase">Concierto confirmado</span>
-                        <h1 class="text-5xl font-black mt-2 mb-6">${currentEvent.name}</h1>
-                        <div class="space-y-4 mb-8">
-                            <div class="flex items-center gap-4 text-gray-300">
-                                <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-[#FF2D55]">📅</div>
-                                <div>
-                                    <p class="text-sm text-gray-500">Fecha y Hora</p>
-                                    <p class="font-semibold">${currentEvent.date}, 20:00</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-4 text-gray-300">
-                                <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-[#FF2D55]">📍</div>
-                                <div>
-                                    <p class="text-sm text-gray-500">Ubicación</p>
-                                    <p class="font-semibold">${currentEvent.venue}, Lima</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mb-10">
-                            <h4 class="font-bold mb-2">Descripción</h4>
-                            <p class="text-gray-400 leading-relaxed">Prepárate para una noche inolvidable. El festival más grande llega a la ciudad con los mejores artistas internacionales en una producción de nivel mundial. No te pierdas la preventa exclusiva.</p>
-                        </div>
-                        <div class="flex items-center gap-6">
-                            <button onclick="goToTickets()" class="btn-primary flex-1 py-4 text-lg font-bold">COMPRAR ENTRADAS</button>
-                            <button class="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 transition">❤️</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-            showSection('detail');
-        }
-
-        // --- Cart Logic ---
-        function goToTickets() {
-            if (!currentUser) {
-                document.getElementById('loginScreen').classList.remove('hidden');
-                return;
-            }
-            document.getElementById('ticket-event-name').innerText = currentEvent.name;
-            resetCart();
-            showSection('tickets');
-        }
-
-        function resetCart() {
-            cart = { platinum: 0, vip: 0, general: 0, occidente: 0, tribunaNorte: 0 };
-            updateCartDisplay();
-        }
-
-        function updateQty(type, delta) {
-            cart[type] = Math.max(0, cart[type] + delta);
-            updateCartDisplay();
-        }
-
-        function updateCartDisplay() {
-            document.getElementById('qty-platinum').innerText = cart.platinum;
-            document.getElementById('qty-vip').innerText = cart.vip;
-            document.getElementById('qty-general').innerText = cart.general;
-            document.getElementById('qty-occidente').innerText = cart.occidente;
-            document.getElementById('qty-tribunaNorte').innerText = cart.tribunaNorte;
-
-            const total = (cart.platinum * prices.platinum) + (cart.vip * prices.vip) + (cart.general * prices.general) + (cart.occidente * prices.occidente) + (cart.tribunaNorte * prices.tribunaNorte);
-            document.getElementById('total-price').innerText = `S/ ${total.toFixed(2)}`;
-            document.getElementById('final-total').innerText = `S/ ${total.toFixed(2)}`;
-            document.getElementById('checkout-final-total').innerText = `S/ ${total.toFixed(2)}`;
-        }
-
-        function goToCheckout() {
-            const total = (cart.platinum * prices.platinum) + (cart.vip * prices.vip) + (cart.general * prices.general) + (cart.occidente * prices.occidente) + (cart.tribunaNorte * prices.tribunaNorte);
-            if (total === 0) {
-                alert("Selecciona al menos una entrada.");
-                return;
-            }
-
-            const itemsContainer = document.getElementById('checkout-items');
-            itemsContainer.innerHTML = '';
-            for (let type in cart) {
-                if (cart[type] > 0) {
-                    itemsContainer.innerHTML += `
-                        <div class="flex justify-between text-sm">
-                            <span class="text-gray-400">${cart[type]}x Entrada ${type.toUpperCase()}</span>
-                            <span>S/ ${(cart[type] * prices[type]).toFixed(2)}</span>
-                        </div>
-                    `;
-                }
-            }
-            showSection('checkout');
-        }
-
-        function processPayment() {
-            showSection('processing');
-            
-            setTimeout(() => {
-                const isSuccess = Math.random() < 0.8;
-                if (isSuccess) {
-                    document.getElementById('qr-image').src = 'https://lh3.googleusercontent.com/d/1nVZZw3JqBKyHWYYatrgaWIvNMoOzpPJX=w220';
-                    document.getElementById('success-event-info').innerText = `${currentEvent.name} - ${currentEvent.date}`;
-                    showSection('success');
-                    
-                    const purchase = {
-                        event: currentEvent.name,
-                        date: new Date().toLocaleDateString(),
-                        total: document.getElementById('checkout-final-total').innerText
-                    };
-                    localStorage.setItem('last_purchase', JSON.stringify(purchase));
-                } else {
-                    showSection('error');
-                }
-            }, 3000);
-        }
-
-        function openSurvey() {
-            if (!currentUser) {
-                alert("Debes iniciar sesión primero");
-                return;
-            }
-
-            const formURL = "https://docs.google.com/forms/d/e/1FAIpQLSdbT4Q5FvtCqOYUZCKknCnr1t1RJTyOiPUusaDfQSo9Z9mtpg/viewform?usp=header";
-            window.open(formURL, "_blank");
-        }
-
-        // --- Init ---
-        document.body.classList.add('loading');
-
-        window.onload = () => {
-            renderGrids();
-            initializeGoogleSignIn();
-
-            // Verificar si hay usuario guardado
-            const savedUser = localStorage.getItem('tickimochi_user');
-            if (savedUser) {
-                currentUser = JSON.parse(savedUser);
-                updateUserUI();
-            }
-
-            setTimeout(() => {
-                document.getElementById('splash').remove();
-
-                // Mostrar login solo si no hay usuario
-                if (!currentUser) {
-                    document.getElementById('loginScreen').classList.remove('hidden');
-                }
-
-                document.body.classList.remove('loading');
-            }, 2200);
-        };
-    </script>
+            document.body.classList.remove('loading');
+        }, 2200);
+    };
+</script>
 </body>
 </html>
