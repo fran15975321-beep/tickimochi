@@ -4,16 +4,6 @@
 
 let currentUser = null;
 
-// =====================================================
-// ⚠️  INSTRUCCIONES PARA CONFIGURAR GOOGLE OAUTH
-// =====================================================
-// 1. Ve a: https://console.cloud.google.com
-// 2. Crea un proyecto → APIs & Services → Credentials
-// 3. Crea un OAuth Client ID (tipo: Aplicación web)
-// 4. En "Authorized JavaScript origins" agrega:
-//       https://fran15975321-beep.github.io
-// 5. Pega tu Client ID abajo reemplazando AQUI_TU_CLIENT_ID
-// =====================================================
 const CLIENT_ID = '563182274008-lvsvetetpqm1l48tiglhju0aroqod7ie.apps.googleusercontent.com';
 
 // --- Mock Data ---
@@ -289,61 +279,81 @@ function openSurvey() {
 }
 
 // =====================================================
-// Profile — carrusel de pasos
+// Profile — Carrusel 6 pasos
 // =====================================================
-const TOTAL_STEPS = 3;
+const TOTAL_STEPS = 6;
 let currentStep = 0;
 
-const stepLabels = ['Identidad', 'Contacto', 'Confirmar'];
+// Títulos y subtítulos por paso (para el encabezado superior)
+const stepMeta = [
+    { title: 'Completa tu perfil',       subtitle: 'Solo toma un momento. Necesitamos estos datos para activar tu cuenta.' },
+    { title: 'Elige tu evento',           subtitle: 'Conoce cómo seleccionar el evento y las entradas que deseas.' },
+    { title: 'Revisa tu pedido',          subtitle: 'Aprende a verificar tu compra antes de pagar.' },
+    { title: 'Realiza el pago',           subtitle: 'Descubre cómo completar tu compra de forma segura.' },
+    { title: 'Obtén tu ticket',           subtitle: 'Así recibirás tu entrada digital después del pago.' },
+    { title: 'Evalúa tu experiencia',     subtitle: 'Tu opinión nos ayuda a seguir mejorando.' },
+];
 
-function buildStepIndicators() {
-    const container = document.getElementById('step-indicators');
+// Dots: construye 6 puntos en el contenedor
+function buildDots() {
+    const container = document.getElementById('step-dots');
     if (!container) return;
-    container.innerHTML = stepLabels.map((label, i) => `
-        <div class="flex items-center gap-2" id="step-ind-${i}">
-            <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300
-                        ${i === 0 ? 'bg-[#FF2D55] text-white shadow-[0_0_14px_rgba(255,45,85,0.5)]' : 'bg-white/10 text-gray-400'}"
-                 id="step-circle-${i}">${i + 1}</div>
-            <span class="text-xs font-semibold hidden sm:block ${i === 0 ? 'text-white' : 'text-gray-500'}"
-                  id="step-label-${i}">${label}</span>
-            ${i < TOTAL_STEPS - 1 ? '<div class="w-8 h-px bg-white/10 mx-1" id="step-line-' + i + '"></div>' : ''}
-        </div>
+    container.innerHTML = Array.from({ length: TOTAL_STEPS }, (_, i) => `
+        <button onclick="goToStep(${i})"
+                id="dot-${i}"
+                class="dot-btn w-2 h-2 rounded-full transition-all duration-300 ${i === 0 ? 'bg-[#FF2D55] w-6' : 'bg-white/20'}"
+                aria-label="Ir al paso ${i + 1}">
+        </button>
     `).join('');
 }
 
-function updateStepIndicators() {
-    stepLabels.forEach((_, i) => {
-        const circle = document.getElementById(`step-circle-${i}`);
-        const label  = document.getElementById(`step-label-${i}`);
-        const line   = document.getElementById(`step-line-${i}`);
-        if (!circle) return;
-
-        if (i < currentStep) {
-            // completado
-            circle.className = 'w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 bg-green-500 text-white';
-            circle.innerHTML = '✓';
-            if (label) label.className = 'text-xs font-semibold hidden sm:block text-green-400';
-            if (line)  line.className  = 'w-8 h-px bg-green-500/50 mx-1';
-        } else if (i === currentStep) {
-            // activo
-            circle.className = 'w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 bg-[#FF2D55] text-white shadow-[0_0_14px_rgba(255,45,85,0.5)]';
-            circle.innerHTML = i + 1;
-            if (label) label.className = 'text-xs font-semibold hidden sm:block text-white';
+function updateDots() {
+    for (let i = 0; i < TOTAL_STEPS; i++) {
+        const dot = document.getElementById(`dot-${i}`);
+        if (!dot) continue;
+        if (i === currentStep) {
+            dot.className = 'dot-btn h-2 rounded-full transition-all duration-300 bg-[#FF2D55] w-6';
+        } else if (i < currentStep) {
+            dot.className = 'dot-btn w-2 h-2 rounded-full transition-all duration-300 bg-[#FF2D55]/40';
         } else {
-            // pendiente
-            circle.className = 'w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 bg-white/10 text-gray-400';
-            circle.innerHTML = i + 1;
-            if (label) label.className = 'text-xs font-semibold hidden sm:block text-gray-500';
+            dot.className = 'dot-btn w-2 h-2 rounded-full transition-all duration-300 bg-white/20';
         }
-    });
+    }
 }
 
-function updateStepSlider() {
+function goToStep(index) {
+    // Solo permite ir a pasos anteriores o al actual
+    if (index <= currentStep) {
+        currentStep = index;
+        syncStepUI();
+    }
+}
+
+function syncStepUI() {
+    // Slider
     const wrapper = document.getElementById('steps-wrapper');
     if (wrapper) wrapper.style.transform = `translateX(-${currentStep * 100}%)`;
-}
 
-function updateNavButtons() {
+    // Barra de progreso
+    const pct = Math.round(((currentStep + 1) / TOTAL_STEPS) * 100);
+    const bar = document.getElementById('progress-bar');
+    if (bar) bar.style.width = pct + '%';
+    const pctEl = document.getElementById('step-pct');
+    if (pctEl) pctEl.textContent = pct + '%';
+    const counterEl = document.getElementById('step-counter');
+    if (counterEl) counterEl.textContent = `Paso ${currentStep + 1} de ${TOTAL_STEPS}`;
+
+    // Título y subtítulo
+    const meta = stepMeta[currentStep];
+    const titleEl = document.getElementById('onboarding-title');
+    const subEl   = document.getElementById('onboarding-subtitle');
+    if (titleEl && meta) titleEl.textContent = meta.title;
+    if (subEl   && meta) subEl.textContent   = meta.subtitle;
+
+    // Dots
+    updateDots();
+
+    // Botones de navegación
     const backBtn = document.getElementById('step-back-btn');
     const nextBtn = document.getElementById('step-next-btn');
     if (!backBtn || !nextBtn) return;
@@ -352,78 +362,49 @@ function updateNavButtons() {
 
     if (currentStep === TOTAL_STEPS - 1) {
         nextBtn.textContent = '¡Empezar a comprar!';
-        nextBtn.style.background = '#22c55e';
-        nextBtn.style.boxShadow  = '0 4px 15px rgba(34,197,94,0.35)';
+        nextBtn.style.background  = '#22c55e';
+        nextBtn.style.boxShadow   = '0 4px 15px rgba(34,197,94,0.35)';
     } else {
         nextBtn.textContent = 'Siguiente';
-        nextBtn.style.background = '';
-        nextBtn.style.boxShadow  = '';
+        nextBtn.style.background  = '';
+        nextBtn.style.boxShadow   = '';
     }
 }
 
 function profileStepNext() {
     if (currentStep === TOTAL_STEPS - 1) {
-        // Último paso → guardar y redirigir
+        // Último paso → guardar datos y redirigir
         saveProfile();
         return;
     }
-    // Validación básica por paso
-    if (!validateStep(currentStep)) return;
 
-    // En paso 1 (confirmación), rellenar resumen
-    if (currentStep === 1) fillSummary();
+    // Validación solo en el paso 1 (datos personales)
+    if (currentStep === 0 && !validateStep0()) return;
 
     currentStep++;
-    updateStepSlider();
-    updateStepIndicators();
-    updateNavButtons();
+    syncStepUI();
 }
 
 function profileStepBack() {
     if (currentStep === 0) return;
     currentStep--;
-    updateStepSlider();
-    updateStepIndicators();
-    updateNavButtons();
+    syncStepUI();
 }
 
-function validateStep(step) {
-    const errors = [];
-    if (step === 0) {
-        if (!document.getElementById('profile-nombre').value.trim()) errors.push('El nombre es requerido.');
-        if (!document.getElementById('profile-apellido').value.trim()) errors.push('El apellido es requerido.');
-        if (!document.getElementById('profile-dni').value.trim()) errors.push('El DNI es requerido.');
+function validateStep0() {
+    if (!document.getElementById('profile-nombre').value.trim()) {
+        showToast('⚠️ El nombre es requerido.', '#FF2D55');
+        return false;
     }
-    if (step === 1) {
-        if (!document.getElementById('profile-ciudad').value.trim()) errors.push('La ciudad es requerida.');
+    if (!document.getElementById('profile-apellido').value.trim()) {
+        showToast('⚠️ El apellido es requerido.', '#FF2D55');
+        return false;
     }
-    if (errors.length) {
-        showToast('⚠️ ' + errors[0], '#FF2D55');
+    if (!document.getElementById('profile-dni').value.trim()) {
+        showToast('⚠️ El DNI es requerido.', '#FF2D55');
         return false;
     }
     return true;
-}
-
-function fillSummary() {
-    const avatarEl    = document.getElementById('profile-avatar');
-    const sumAvatar   = document.getElementById('summary-avatar');
-    const sumAvatarPh = document.getElementById('summary-avatar-placeholder');
-
-    if (avatarEl && !avatarEl.classList.contains('hidden') && avatarEl.src) {
-        sumAvatar.src = avatarEl.src;
-        sumAvatar.classList.remove('hidden');
-        sumAvatarPh.classList.add('hidden');
-    }
-
-    const nombre   = document.getElementById('profile-nombre').value;
-    const apellido = document.getElementById('profile-apellido').value;
-    document.getElementById('summary-name').textContent  = [nombre, apellido].filter(Boolean).join(' ') || '—';
-    document.getElementById('summary-email').textContent = document.getElementById('profile-correo').value || '—';
-    document.getElementById('summary-dni').textContent        = document.getElementById('profile-dni').value        || '—';
-    document.getElementById('summary-nacimiento').textContent = document.getElementById('profile-nacimiento').value || '—';
-    document.getElementById('summary-ciudad').textContent     = document.getElementById('profile-ciudad').value     || '—';
-    document.getElementById('summary-direccion').textContent  = document.getElementById('profile-direccion').value  || '—';
-    document.getElementById('summary-genero').textContent     = document.getElementById('profile-genero').value     || '—';
 }
 
 function loadProfile() {
@@ -431,10 +412,8 @@ function loadProfile() {
 
     // Reset al paso 1
     currentStep = 0;
-    buildStepIndicators();
-    updateStepSlider();
-    updateStepIndicators();
-    updateNavButtons();
+    buildDots();
+    syncStepUI();
 
     // Foto de Google
     const avatarEl = document.getElementById('profile-avatar');
@@ -442,7 +421,7 @@ function loadProfile() {
     if (currentUser.picture) {
         avatarEl.src = currentUser.picture;
         avatarEl.classList.remove('hidden');
-        placeholderEl.classList.add('hidden');
+        if (placeholderEl) placeholderEl.classList.add('hidden');
     }
 
     // Correo autollenado (readonly)
@@ -450,7 +429,7 @@ function loadProfile() {
 
     // Pre-rellenar nombre/apellido desde Google
     const nameParts = (currentUser.name || '').split(' ');
-    document.getElementById('profile-nombre').value  = nameParts[0] || '';
+    document.getElementById('profile-nombre').value   = nameParts[0] || '';
     document.getElementById('profile-apellido').value = nameParts.slice(1).join(' ') || '';
 
     // Cargar datos guardados previamente
@@ -464,10 +443,10 @@ function loadProfile() {
         if (data.ciudad)     document.getElementById('profile-ciudad').value      = data.ciudad;
         if (data.direccion)  document.getElementById('profile-direccion').value   = data.direccion;
         if (data.genero)     document.getElementById('profile-genero').value      = data.genero;
-        if (data.avatarUrl) {
+        if (data.avatarUrl && avatarEl) {
             avatarEl.src = data.avatarUrl;
             avatarEl.classList.remove('hidden');
-            placeholderEl.classList.add('hidden');
+            if (placeholderEl) placeholderEl.classList.add('hidden');
         }
     }
 }
