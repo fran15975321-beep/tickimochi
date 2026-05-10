@@ -13,17 +13,17 @@
 
 <!-- Splash Screen -->
 <div id="splash" class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#0A0F1C]">
-    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjDWdbCn4v1g5HM9irFbXMB-MRPhG0Kx4cRQjf1tdqZirp8hLQAWajka7vJkAhm8pOXLW04O-txJQwfcF7l_OLiDhd3ZGHKglr1c4M3oJfUE6gVRDpVakRCEpenWW-WMdlzUku0GDK4fzaGbnYfCV_BOSj8XQ0zOrdDZ5PnERYv0pmE6XAQdJ2YIGZIEbOv/s320/upscalemedia-transformed%20-%202026-05-05T143843.230.png" class="w-32 mb-6">
-    <h1 class="text-3xl font-extrabold text-[#FF2D55] tracking-tight">TickiMochi</h1>
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjDWdbCn4v1g5HM9irFbXMB-MRPhG0Kx4cRQjf1tdqZirp8hLQAWajka7vJkAhm8pOXLW04O-txJQwfcF7l_OLiDhd3ZGHKglr1c4M3oJfUE6gVRDpVakRCEpenWW-WMdlzUku0GDK4fzaGbnYfCV_BOSj8XQ0zOrdDZ5PnERYv0pmE6XAQdJ2YIGZIEbOv/s320/upscalemedia-transformed%20-%202026-05-05T143843.230.png" class="w-24 sm:w-32 mb-6">
+    <h1 class="text-2xl sm:text-3xl font-extrabold text-[#FF2D55] tracking-tight">TickiMochi</h1>
 </div>
 
 <!-- Login Screen -->
-<div id="loginScreen" class="fixed inset-0 z-[9998] flex items-center justify-center bg-[#0A0F1C]/95 backdrop-blur-md hidden">
-    <div class="bg-[#1F2937] p-10 rounded-[30px] border border-white/10 shadow-2xl w-[360px] text-center">
+<div id="loginScreen" class="fixed inset-0 z-[9998] flex items-center justify-center bg-[#0A0F1C]/95 backdrop-blur-md hidden px-4">
+    <div class="bg-[#1F2937] p-8 sm:p-10 rounded-[24px] sm:rounded-[30px] border border-white/10 shadow-2xl w-full max-w-[360px] text-center">
         <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjDWdbCn4v1g5HM9irFbXMB-MRPhG0Kx4cRQjf1tdqZirp8hLQAWajka7vJkAhm8pOXLW04O-txJQwfcF7l_OLiDhd3ZGHKglr1c4M3oJfUE6gVRDpVakRCEpenWW-WMdlzUku0GDK4fzaGbnYfCV_BOSj8XQ0zOrdDZ5PnERYv0pmE6XAQdJ2YIGZIEbOv/s320/upscalemedia-transformed%20-%202026-05-05T143843.230.png"
-             class="w-16 mx-auto mb-5">
-        <h2 class="text-2xl font-extrabold mb-1">Bienvenido</h2>
-        <p class="text-gray-400 text-sm mb-8">Inicia sesión para continuar</p>
+             class="w-14 sm:w-16 mx-auto mb-4 sm:mb-5">
+        <h2 class="text-xl sm:text-2xl font-extrabold mb-1">Bienvenido</h2>
+        <p class="text-gray-400 text-sm mb-6 sm:mb-8">Inicia sesión para continuar</p>
         <div id="google-signin-button"></div>
         <p id="login-error" class="login-error">
             ⚠️ Hubo un problema al iniciar sesión. Intenta de nuevo.
@@ -33,24 +33,25 @@
 
 <!-- NAV -->
 <nav class="glass-nav fixed top-0 w-full z-50">
-    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        <div class="flex items-center gap-3 cursor-pointer" onclick="showSection('home')">
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjDWdbCn4v1g5HM9irFbXMB-MRPhG0Kx4cRQjf1tdqZirp8hLQAWajka7vJkAhm8pOXLW04O-txJQwfcF7l_OLiDhd3ZGHKglr1c4M3oJfUE6gVRDpVakRCEpenWW-WMdlzUku0GDK4fzaGbnYfCV_BOSj8XQ0zOrdDZ5PnERYv0pmE6XAQdJ2YIGZIEbOv/s320/upscalemedia-transformed%20-%202026-05-05T143843.230.png" alt="Logo" class="h-12 w-auto object-contain">
-            <span class="text-2xl font-extrabold tracking-tighter text-[#FF2D55]">TickiMochi</span>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
+        <div class="flex items-center gap-2 sm:gap-3 cursor-pointer" onclick="showSection('home')">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjDWdbCn4v1g5HM9irFbXMB-MRPhG0Kx4cRQjf1tdqZirp8hLQAWajka7vJkAhm8pOXLW04O-txJQwfcF7l_OLiDhd3ZGHKglr1c4M3oJfUE6gVRDpVakRCEpenWW-WMdlzUku0GDK4fzaGbnYfCV_BOSj8XQ0zOrdDZ5PnERYv0pmE6XAQdJ2YIGZIEbOv/s320/upscalemedia-transformed%20-%202026-05-05T143843.230.png" alt="Logo" class="h-9 sm:h-12 w-auto object-contain">
+            <span class="text-xl sm:text-2xl font-extrabold tracking-tighter text-[#FF2D55]">TickiMochi</span>
         </div>
+        <!-- Desktop Nav -->
         <div class="hidden md:flex items-center gap-8 font-medium">
             <a href="#" onclick="showSection('home')" class="hover:text-[#FF2D55] transition">Inicio</a>
             <a href="#" onclick="showSection('events')" class="hover:text-[#FF2D55] transition">Eventos</a>
             <a href="#" class="hover:text-[#FF2D55] transition">Entradas</a>
             <a href="#" onclick="showSection('profile')" class="hover:text-[#FF2D55] transition">Perfil</a>
         </div>
-        <div id="auth-container" class="flex items-center gap-4">
-            <button id="connect-btn" onclick="document.getElementById('loginScreen').classList.remove('hidden')" class="btn-primary px-6 py-2 text-sm font-bold">CONECTAR</button>
+        <div id="auth-container" class="flex items-center gap-2 sm:gap-4">
+            <button id="connect-btn" onclick="document.getElementById('loginScreen').classList.remove('hidden')" class="btn-primary px-4 sm:px-6 py-2 text-xs sm:text-sm font-bold">CONECTAR</button>
             <div id="user-menu" class="user-dropdown hidden">
                 <div class="user-profile-btn" onclick="toggleDropdown()">
                     <img id="user-avatar" src="" alt="Usuario">
-                    <span id="user-name"></span>
-                    <span>▼</span>
+                    <span id="user-name" class="hidden sm:inline"></span>
+                    <span class="hidden sm:inline">▼</span>
                 </div>
                 <div class="dropdown-content">
                     <a onclick="showSection('profile')">Mi Perfil</a>
@@ -58,256 +59,269 @@
                     <a onclick="logoutUser()">Cerrar Sesión</a>
                 </div>
             </div>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg hover:bg-white/10 transition" onclick="toggleMobileMenu()">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+    <!-- Mobile Nav Dropdown -->
+    <div id="mobile-menu" class="md:hidden hidden border-t border-white/5 bg-[#0A0F1C]/95 backdrop-blur-md">
+        <div class="px-4 py-3 space-y-1">
+            <a href="#" onclick="showSection('home'); closeMobileMenu()" class="block py-3 px-4 rounded-xl hover:bg-white/5 hover:text-[#FF2D55] transition font-medium">Inicio</a>
+            <a href="#" onclick="showSection('events'); closeMobileMenu()" class="block py-3 px-4 rounded-xl hover:bg-white/5 hover:text-[#FF2D55] transition font-medium">Eventos</a>
+            <a href="#" onclick="closeMobileMenu()" class="block py-3 px-4 rounded-xl hover:bg-white/5 hover:text-[#FF2D55] transition font-medium">Entradas</a>
+            <a href="#" onclick="showSection('profile'); closeMobileMenu()" class="block py-3 px-4 rounded-xl hover:bg-white/5 hover:text-[#FF2D55] transition font-medium">Perfil</a>
         </div>
     </div>
 </nav>
 
-<main class="pt-20">
+<main class="pt-16 sm:pt-20">
 
     <!-- HOME -->
-    <section id="home" class="max-w-7xl mx-auto px-6 py-12">
-        <div class="relative h-[500px] rounded-[40px] overflow-hidden mb-16">
+    <section id="home" class="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-12">
+        <!-- Hero -->
+        <div class="relative h-[280px] sm:h-[380px] md:h-[500px] rounded-[24px] sm:rounded-[40px] overflow-hidden mb-8 sm:mb-16">
             <img src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?auto=format&fit=crop&q=80&w=2070" class="w-full h-full object-cover brightness-50" alt="Hero">
-            <div class="absolute inset-0 flex flex-col justify-center px-12 bg-gradient-to-r from-black/80 to-transparent">
-                <h1 class="text-6xl font-black mb-1 leading-tight">Reggaeton Lima Festival</h1>
-                <span class="text-[#FF2D55] text-4xl font-extrabold mb-4">Sábado 28 de marzo, 20.00</span>
-                <p class="text-gray-300 text-xl max-w-lg mb-8">Estadio Nacional del Perú, Lima</p>
-                <button onclick="buyFeaturedTicket(1)" class="btn-primary w-fit px-10 py-4 text-lg font-bold">Comprar ticket</button>
+            <div class="absolute inset-0 flex flex-col justify-end sm:justify-center px-5 sm:px-12 pb-6 sm:pb-0 bg-gradient-to-t sm:bg-gradient-to-r from-black/90 via-black/60 to-transparent">
+                <h1 class="text-2xl sm:text-4xl md:text-6xl font-black mb-1 leading-tight">Reggaeton Lima Festival</h1>
+                <span class="text-[#FF2D55] text-lg sm:text-2xl md:text-4xl font-extrabold mb-2 sm:mb-4">Sáb. 28 de marzo, 20.00</span>
+                <p class="text-gray-300 text-sm sm:text-xl max-w-lg mb-4 sm:mb-8">Estadio Nacional del Perú, Lima</p>
+                <button onclick="buyFeaturedTicket(1)" class="btn-primary w-fit px-6 sm:px-10 py-3 sm:py-4 text-sm sm:text-lg font-bold">Comprar ticket</button>
             </div>
         </div>
-        <div class="flex justify-between items-end mb-8">
-            <h2 class="text-3xl font-bold">Próximos Eventos</h2>
-            <a href="#" onclick="showSection('events')" class="text-[#FF2D55] font-semibold hover:underline">Ver todos</a>
+        <div class="flex justify-between items-end mb-5 sm:mb-8">
+            <h2 class="text-xl sm:text-3xl font-bold">Próximos Eventos</h2>
+            <a href="#" onclick="showSection('events')" class="text-[#FF2D55] font-semibold hover:underline text-sm sm:text-base">Ver todos</a>
         </div>
-        <div id="home-events-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+        <div id="home-events-grid" class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6"></div>
     </section>
 
     <!-- EVENTS -->
-    <section id="events" class="max-w-7xl mx-auto px-6 py-12 hidden-section">
-        <h2 class="text-4xl font-bold mb-10 text-center">Todos los Conciertos</h2>
-        <div id="all-events-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+    <section id="events" class="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-12 hidden-section">
+        <h2 class="text-2xl sm:text-4xl font-bold mb-6 sm:mb-10 text-center">Todos los Conciertos</h2>
+        <div id="all-events-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8"></div>
     </section>
 
     <!-- DETAIL -->
-    <section id="detail" class="max-w-7xl mx-auto px-6 py-12 hidden-section">
-        <button onclick="showSection('events')" class="mb-6 flex items-center gap-2 text-gray-400 hover:text-white transition">
+    <section id="detail" class="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-12 hidden-section">
+        <button onclick="showSection('events')" class="mb-4 sm:mb-6 flex items-center gap-2 text-gray-400 hover:text-white transition text-sm sm:text-base">
             <span>← Volver</span>
         </button>
         <div id="event-detail-content"></div>
     </section>
 
     <!-- TICKETS -->
-    <section id="tickets" class="max-w-2xl mx-auto px-6 py-12 hidden-section">
-        <div class="bg-[#1F2937] p-8 rounded-[30px] border border-white/10 shadow-2xl">
-            <h2 class="text-3xl font-bold mb-2 text-center">Elegir tus Entradas</h2>
-            <p id="ticket-event-name" class="text-[#FF2D55] text-center font-semibold mb-8 uppercase tracking-widest text-sm"></p>
-            <div class="space-y-4 mb-8">
-                <div class="flex items-center justify-between p-4 bg-black/20 rounded-2xl border border-white/5">
-                    <div><p class="font-bold">PLATINUM</p><p class="text-xs text-gray-400">S/ 5.00</p></div>
-                    <div class="flex items-center gap-4">
-                        <button onclick="updateQty('platinum', -1)" class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">-</button>
-                        <span id="qty-platinum">0</span>
-                        <button onclick="updateQty('platinum', 1)" class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">+</button>
+    <section id="tickets" class="max-w-2xl mx-auto px-4 sm:px-6 py-6 sm:py-12 hidden-section">
+        <div class="bg-[#1F2937] p-5 sm:p-8 rounded-[24px] sm:rounded-[30px] border border-white/10 shadow-2xl">
+            <h2 class="text-2xl sm:text-3xl font-bold mb-2 text-center">Elige tus Entradas</h2>
+            <p id="ticket-event-name" class="text-[#FF2D55] text-center font-semibold mb-5 sm:mb-8 uppercase tracking-widest text-xs sm:text-sm"></p>
+            <div class="space-y-3 mb-6 sm:mb-8">
+                <!-- Ticket rows -->
+                <div class="flex items-center justify-between p-3 sm:p-4 bg-black/20 rounded-xl sm:rounded-2xl border border-white/5">
+                    <div><p class="font-bold text-sm sm:text-base">PLATINUM</p><p class="text-xs text-gray-400">S/ 5.00</p></div>
+                    <div class="flex items-center gap-3 sm:gap-4">
+                        <button onclick="updateQty('platinum', -1)" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-white/20 flex items-center justify-center text-sm hover:border-[#FF2D55] transition">-</button>
+                        <span id="qty-platinum" class="w-4 text-center">0</span>
+                        <button onclick="updateQty('platinum', 1)" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-white/20 flex items-center justify-center text-sm hover:border-[#FF2D55] transition">+</button>
                     </div>
                 </div>
-                <div class="flex items-center justify-between p-4 bg-black/20 rounded-2xl border border-white/5">
-                    <div><p class="font-bold">VIP</p><p class="text-xs text-gray-400">S/ 3.50</p></div>
-                    <div class="flex items-center gap-4">
-                        <button onclick="updateQty('vip', -1)" class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">-</button>
-                        <span id="qty-vip">0</span>
-                        <button onclick="updateQty('vip', 1)" class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">+</button>
+                <div class="flex items-center justify-between p-3 sm:p-4 bg-black/20 rounded-xl sm:rounded-2xl border border-white/5">
+                    <div><p class="font-bold text-sm sm:text-base">VIP</p><p class="text-xs text-gray-400">S/ 3.50</p></div>
+                    <div class="flex items-center gap-3 sm:gap-4">
+                        <button onclick="updateQty('vip', -1)" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-white/20 flex items-center justify-center text-sm hover:border-[#FF2D55] transition">-</button>
+                        <span id="qty-vip" class="w-4 text-center">0</span>
+                        <button onclick="updateQty('vip', 1)" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-white/20 flex items-center justify-center text-sm hover:border-[#FF2D55] transition">+</button>
                     </div>
                 </div>
-                <div class="flex items-center justify-between p-4 bg-black/20 rounded-2xl border border-white/5">
-                    <div><p class="font-bold">GENERAL</p><p class="text-xs text-gray-400">S/ 2.50</p></div>
-                    <div class="flex items-center gap-4">
-                        <button onclick="updateQty('general', -1)" class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">-</button>
-                        <span id="qty-general">0</span>
-                        <button onclick="updateQty('general', 1)" class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">+</button>
+                <div class="flex items-center justify-between p-3 sm:p-4 bg-black/20 rounded-xl sm:rounded-2xl border border-white/5">
+                    <div><p class="font-bold text-sm sm:text-base">GENERAL</p><p class="text-xs text-gray-400">S/ 2.50</p></div>
+                    <div class="flex items-center gap-3 sm:gap-4">
+                        <button onclick="updateQty('general', -1)" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-white/20 flex items-center justify-center text-sm hover:border-[#FF2D55] transition">-</button>
+                        <span id="qty-general" class="w-4 text-center">0</span>
+                        <button onclick="updateQty('general', 1)" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-white/20 flex items-center justify-center text-sm hover:border-[#FF2D55] transition">+</button>
                     </div>
                 </div>
-                <div class="flex items-center justify-between p-4 bg-black/20 rounded-2xl border border-white/5">
-                    <div><p class="font-bold">OCCIDENTE</p><p class="text-xs text-gray-400">S/ 3.00</p></div>
-                    <div class="flex items-center gap-4">
-                        <button onclick="updateQty('occidente', -1)" class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">-</button>
-                        <span id="qty-occidente">0</span>
-                        <button onclick="updateQty('occidente', 1)" class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">+</button>
+                <div class="flex items-center justify-between p-3 sm:p-4 bg-black/20 rounded-xl sm:rounded-2xl border border-white/5">
+                    <div><p class="font-bold text-sm sm:text-base">OCCIDENTE</p><p class="text-xs text-gray-400">S/ 3.00</p></div>
+                    <div class="flex items-center gap-3 sm:gap-4">
+                        <button onclick="updateQty('occidente', -1)" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-white/20 flex items-center justify-center text-sm hover:border-[#FF2D55] transition">-</button>
+                        <span id="qty-occidente" class="w-4 text-center">0</span>
+                        <button onclick="updateQty('occidente', 1)" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-white/20 flex items-center justify-center text-sm hover:border-[#FF2D55] transition">+</button>
                     </div>
                 </div>
-                <div class="flex items-center justify-between p-4 bg-black/20 rounded-2xl border border-white/5">
-                    <div><p class="font-bold">TRIBUNA NORTE</p><p class="text-xs text-gray-400">S/ 2.00</p></div>
-                    <div class="flex items-center gap-4">
-                        <button onclick="updateQty('tribunaNorte', -1)" class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">-</button>
-                        <span id="qty-tribunaNorte">0</span>
-                        <button onclick="updateQty('tribunaNorte', 1)" class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">+</button>
+                <div class="flex items-center justify-between p-3 sm:p-4 bg-black/20 rounded-xl sm:rounded-2xl border border-white/5">
+                    <div><p class="font-bold text-sm sm:text-base">TRIBUNA NORTE</p><p class="text-xs text-gray-400">S/ 2.00</p></div>
+                    <div class="flex items-center gap-3 sm:gap-4">
+                        <button onclick="updateQty('tribunaNorte', -1)" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-white/20 flex items-center justify-center text-sm hover:border-[#FF2D55] transition">-</button>
+                        <span id="qty-tribunaNorte" class="w-4 text-center">0</span>
+                        <button onclick="updateQty('tribunaNorte', 1)" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-white/20 flex items-center justify-center text-sm hover:border-[#FF2D55] transition">+</button>
                     </div>
                 </div>
             </div>
-            <div class="flex justify-between items-center mb-8 px-2">
-                <span class="text-gray-400">Total a pagar:</span>
-                <span id="total-price" class="text-2xl font-bold text-[#FF2D55]">S/ 0.00</span>
+            <div class="flex justify-between items-center mb-6 sm:mb-8 px-1 sm:px-2">
+                <span class="text-gray-400 text-sm sm:text-base">Total a pagar:</span>
+                <span id="total-price" class="text-xl sm:text-2xl font-bold text-[#FF2D55]">S/ 0.00</span>
             </div>
-            <button onclick="goToCheckout()" class="btn-primary w-full py-4 text-lg font-bold uppercase tracking-wider">Continuar al Pago</button>
+            <button onclick="goToCheckout()" class="btn-primary w-full py-3 sm:py-4 text-base sm:text-lg font-bold uppercase tracking-wider">Continuar al Pago</button>
         </div>
     </section>
 
     <!-- CHECKOUT -->
-    <section id="checkout" class="max-w-7xl mx-auto px-6 py-12 hidden-section">
-        <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
+    <section id="checkout" class="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-12 hidden-section">
+        <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-12">
             <div>
-                <h2 class="text-3xl font-bold mb-8">Método de Pago</h2>
-                <div class="space-y-4">
-                    <label class="flex items-center justify-between p-5 bg-white/5 border border-[#FF2D55] rounded-2xl cursor-pointer">
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-8 bg-blue-600 rounded flex items-center justify-center font-bold text-[10px]">VISA</div>
-                            <span class="font-bold">**** **** **** 7540</span>
+                <h2 class="text-2xl sm:text-3xl font-bold mb-5 sm:mb-8">Método de Pago</h2>
+                <div class="space-y-3 sm:space-y-4">
+                    <label class="flex items-center justify-between p-4 sm:p-5 bg-white/5 border border-[#FF2D55] rounded-xl sm:rounded-2xl cursor-pointer">
+                        <div class="flex items-center gap-3 sm:gap-4">
+                            <div class="w-10 sm:w-12 h-7 sm:h-8 bg-blue-600 rounded flex items-center justify-center font-bold text-[9px] sm:text-[10px]">VISA</div>
+                            <span class="font-bold text-sm sm:text-base">**** **** **** 7540</span>
                         </div>
                         <input type="radio" name="pay" checked class="accent-[#FF2D55]">
                     </label>
-                    <label class="flex items-center justify-between p-5 bg-white/5 border border-white/10 rounded-2xl cursor-pointer hover:border-[#FF2D55]/50 transition">
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-8 bg-blue-400 rounded flex items-center justify-center font-bold text-[10px]">PayPal</div>
-                            <span class="font-bold">user@mail.com</span>
+                    <label class="flex items-center justify-between p-4 sm:p-5 bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl cursor-pointer hover:border-[#FF2D55]/50 transition">
+                        <div class="flex items-center gap-3 sm:gap-4">
+                            <div class="w-10 sm:w-12 h-7 sm:h-8 bg-blue-400 rounded flex items-center justify-center font-bold text-[9px] sm:text-[10px]">PayPal</div>
+                            <span class="font-bold text-sm sm:text-base">user@mail.com</span>
                         </div>
                         <input type="radio" name="pay" class="accent-[#FF2D55]">
                     </label>
-                    <label class="flex items-center justify-between p-5 bg-white/5 border border-white/10 rounded-2xl cursor-pointer hover:border-[#FF2D55]/50 transition">
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-8 bg-purple-600 rounded flex items-center justify-center font-bold text-[10px]">YAPE</div>
-                            <span class="font-bold">977859023</span>
+                    <label class="flex items-center justify-between p-4 sm:p-5 bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl cursor-pointer hover:border-[#FF2D55]/50 transition">
+                        <div class="flex items-center gap-3 sm:gap-4">
+                            <div class="w-10 sm:w-12 h-7 sm:h-8 bg-purple-600 rounded flex items-center justify-center font-bold text-[9px] sm:text-[10px]">YAPE</div>
+                            <span class="font-bold text-sm sm:text-base">977859023</span>
                         </div>
                         <input type="radio" name="pay" class="accent-[#FF2D55]">
                     </label>
                 </div>
             </div>
-            <div class="bg-black/40 p-8 rounded-[30px] border border-white/5 h-fit">
-                <h3 class="text-xl font-bold mb-6">Resumen de Compra</h3>
-                <div id="checkout-items" class="space-y-4 mb-6"></div>
-                <hr class="border-white/10 mb-6">
-                <div class="flex justify-between text-xl font-bold">
+            <div class="bg-black/40 p-6 sm:p-8 rounded-[24px] sm:rounded-[30px] border border-white/5 h-fit">
+                <h3 class="text-lg sm:text-xl font-bold mb-4 sm:mb-6">Resumen de Compra</h3>
+                <div id="checkout-items" class="space-y-3 sm:space-y-4 mb-4 sm:mb-6"></div>
+                <hr class="border-white/10 mb-4 sm:mb-6">
+                <div class="flex justify-between text-lg sm:text-xl font-bold">
                     <span>Total:</span>
                     <span id="checkout-final-total">S/ 0.00</span>
                 </div>
-                <button onclick="processPayment()" class="btn-primary w-full py-4 mt-8 text-lg font-bold">PAGAR AHORA</button>
+                <button onclick="processPayment()" class="btn-primary w-full py-3 sm:py-4 mt-6 sm:mt-8 text-base sm:text-lg font-bold">PAGAR AHORA</button>
             </div>
         </div>
     </section>
 
     <!-- PROCESSING -->
-    <section id="processing" class="max-w-7xl mx-auto px-6 py-24 hidden-section text-center">
+    <section id="processing" class="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24 hidden-section text-center">
         <div class="flex flex-col items-center gap-6">
             <div class="loader"></div>
-            <h2 class="text-3xl font-bold">Procesando tu pago...</h2>
-            <p class="text-gray-400">Por favor no cierres la ventana.</p>
+            <h2 class="text-2xl sm:text-3xl font-bold">Procesando tu pago...</h2>
+            <p class="text-gray-400 text-sm sm:text-base">Por favor no cierres la ventana.</p>
         </div>
     </section>
 
     <!-- SUCCESS -->
-    <section id="success" class="max-w-7xl mx-auto px-6 py-12 hidden-section text-center">
-        <div class="max-w-md mx-auto bg-gradient-to-b from-[#1F2937] to-black p-10 rounded-[40px] border border-white/10">
-            <div class="mb-8">
-                <img id="qr-image" src="" alt="QR" class="w-48 h-48 mx-auto">
+    <section id="success" class="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-12 hidden-section text-center">
+        <div class="max-w-md mx-auto bg-gradient-to-b from-[#1F2937] to-black p-7 sm:p-10 rounded-[30px] sm:rounded-[40px] border border-white/10">
+            <div class="mb-6 sm:mb-8">
+                <img id="qr-image" src="" alt="QR" class="w-40 sm:w-48 h-40 sm:h-48 mx-auto">
             </div>
-            <h2 class="text-2xl font-bold mb-4">¡Tu compra ha sido confirmada!</h2>
-            <p class="text-gray-400 mb-8">Hemos enviado los detalles a tu correo electrónico registrado.</p>
-            <div class="text-left bg-white/5 p-4 rounded-2xl mb-8">
+            <h2 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">¡Tu compra ha sido confirmada!</h2>
+            <p class="text-gray-400 text-sm sm:text-base mb-6 sm:mb-8">Hemos enviado los detalles a tu correo electrónico registrado.</p>
+            <div class="text-left bg-white/5 p-4 rounded-2xl mb-6 sm:mb-8">
                 <p class="text-xs text-gray-500">Ticket ID: #TM-882910</p>
-                <p id="success-event-info" class="font-bold text-[#FF2D55]"></p>
+                <p id="success-event-info" class="font-bold text-[#FF2D55] text-sm sm:text-base"></p>
             </div>
-            <button onclick="showSection('home')" class="w-full py-4 rounded-full border border-white/20 hover:bg-white hover:text-black transition font-bold">Ver mis entradas</button>
-            <button onclick="openSurvey()" class="btn-primary w-full py-3 mt-4 text-sm">Evaluar experiencia</button>
+            <button onclick="showSection('home')" class="w-full py-3 sm:py-4 rounded-full border border-white/20 hover:bg-white hover:text-black transition font-bold text-sm sm:text-base">Ver mis entradas</button>
+            <button onclick="openSurvey()" class="btn-primary w-full py-3 mt-3 sm:mt-4 text-sm">Evaluar experiencia</button>
         </div>
     </section>
 
     <!-- ERROR -->
-    <section id="error" class="max-w-7xl mx-auto px-6 py-12 hidden-section text-center">
+    <section id="error" class="max-w-7xl mx-auto px-4 sm:px-6 py-12 hidden-section text-center">
         <div class="max-w-md mx-auto">
-            <div class="text-6xl mb-6">😕</div>
-            <h2 class="text-3xl font-bold mb-4 text-[#FF2D55]">Lo sentimos</h2>
-            <p class="text-gray-400 mb-8">No se han encontrado entradas disponibles para esta categoría en este momento.</p>
+            <div class="text-5xl sm:text-6xl mb-6">😕</div>
+            <h2 class="text-2xl sm:text-3xl font-bold mb-4 text-[#FF2D55]">Lo sentimos</h2>
+            <p class="text-gray-400 mb-8 text-sm sm:text-base">No se han encontrado entradas disponibles para esta categoría en este momento.</p>
             <button onclick="showSection('events')" class="btn-primary px-8 py-3 font-bold uppercase">Volver a eventos</button>
         </div>
     </section>
 
     <!-- PERFIL — Carrusel 6 pasos -->
-    <section id="profile" class="min-h-screen flex flex-col items-center justify-center px-4 py-16 hidden-section">
-
+    <section id="profile" class="min-h-screen flex flex-col items-center justify-start sm:justify-center px-4 py-8 sm:py-16 hidden-section">
         <!-- Encabezado -->
-        <div class="text-center mb-8">
+        <div class="text-center mb-5 sm:mb-8">
             <p class="text-[#FF2D55] text-xs font-bold uppercase tracking-widest mb-2">¡Bienvenido a TickiMochi!</p>
-            <h2 id="onboarding-title" class="text-3xl font-extrabold">Completa tu perfil</h2>
-            <p id="onboarding-subtitle" class="text-gray-400 text-sm mt-2 max-w-sm mx-auto">Solo toma un momento. Necesitamos estos datos para activar tu cuenta.</p>
+            <h2 id="onboarding-title" class="text-2xl sm:text-3xl font-extrabold">Completa tu perfil</h2>
+            <p id="onboarding-subtitle" class="text-gray-400 text-xs sm:text-sm mt-2 max-w-sm mx-auto">Solo toma un momento. Necesitamos estos datos para activar tu cuenta.</p>
         </div>
 
         <!-- Barra de progreso -->
-        <div class="w-full max-w-lg mb-8">
-            <div class="flex items-center justify-between mb-3">
+        <div class="w-full max-w-lg mb-5 sm:mb-8">
+            <div class="flex items-center justify-between mb-2 sm:mb-3">
                 <span id="step-counter" class="text-xs text-gray-500 font-semibold">Paso 1 de 6</span>
                 <span id="step-pct" class="text-xs text-[#FF2D55] font-bold">17%</span>
             </div>
             <div class="h-1.5 bg-white/10 rounded-full overflow-hidden">
                 <div id="progress-bar" class="h-full bg-[#FF2D55] rounded-full transition-all duration-500" style="width:17%"></div>
             </div>
-            <!-- Dots -->
-            <div class="flex justify-center gap-2 mt-4" id="step-dots"></div>
+            <div class="flex justify-center gap-2 mt-3 sm:mt-4" id="step-dots"></div>
         </div>
 
         <!-- Tarjeta carrusel -->
         <div class="w-full max-w-lg">
-            <div id="carousel-container" class="relative overflow-hidden rounded-[30px] bg-[#1F2937] border border-white/5 shadow-2xl">
+            <div id="carousel-container" class="relative overflow-hidden rounded-[24px] sm:rounded-[30px] bg-[#1F2937] border border-white/5 shadow-2xl">
                 <div id="steps-wrapper" class="flex transition-transform duration-500 ease-in-out" style="will-change: transform;">
 
-                    <!-- ══════════════════════════════════════
-                         PASO 1 — Tu perfil (datos personales)
-                    ══════════════════════════════════════ -->
-                    <div class="step-slide p-8 md:p-10">
-                        <div class="step-header mb-6">
+                    <!-- PASO 1 -->
+                    <div class="step-slide p-5 sm:p-8 md:p-10">
+                        <div class="step-header mb-5 sm:mb-6">
                             <div class="step-number">1</div>
                             <div>
-                                <p class="font-bold text-base">Tu perfil</p>
+                                <p class="font-bold text-sm sm:text-base">Tu perfil</p>
                                 <p class="text-gray-400 text-xs">Foto y datos personales</p>
                             </div>
                         </div>
-                        <div class="flex justify-center mb-6">
+                        <div class="flex justify-center mb-5 sm:mb-6">
                             <div class="relative">
-                                <div class="w-24 h-24 rounded-full bg-[#0A0F1C] border-4 border-[#FF2D55]/30 overflow-hidden flex items-center justify-center">
+                                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[#0A0F1C] border-4 border-[#FF2D55]/30 overflow-hidden flex items-center justify-center">
                                     <img id="profile-avatar" src="" alt="Avatar" class="w-full h-full object-cover hidden"
                                          onerror="this.classList.add('hidden'); document.getElementById('profile-avatar-placeholder').classList.remove('hidden')">
-                                    <svg id="profile-avatar-placeholder" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-16 h-16">
+                                    <svg id="profile-avatar-placeholder" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-14 h-14 sm:w-16 sm:h-16">
                                         <circle cx="50" cy="35" r="20" fill="#FF2D55"/>
                                         <ellipse cx="50" cy="85" rx="32" ry="22" fill="#FF2D55"/>
                                     </svg>
                                 </div>
-                                <label for="avatar-upload" class="absolute bottom-0 right-0 w-7 h-7 bg-[#FF2D55] rounded-full flex items-center justify-center cursor-pointer shadow-lg hover:scale-110 transition">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                <label for="avatar-upload" class="absolute bottom-0 right-0 w-6 h-6 sm:w-7 sm:h-7 bg-[#FF2D55] rounded-full flex items-center justify-center cursor-pointer shadow-lg hover:scale-110 transition">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536M9 13l6.586-6.586a2 2 0 112.828 2.828L11.828 15.828a2 2 0 01-1.414.586H9v-2a2 2 0 01.586-1.414z"/>
                                     </svg>
                                 </label>
                                 <input id="avatar-upload" type="file" accept="image/*" class="hidden" onchange="previewAvatar(event)">
                             </div>
                         </div>
-                        <div class="space-y-4">
-                            <div class="grid grid-cols-2 gap-4">
+                        <div class="space-y-3 sm:space-y-4">
+                            <div class="grid grid-cols-2 gap-3 sm:gap-4">
                                 <div>
-                                    <label class="block text-xs text-gray-400 mb-1.5">Nombre *</label>
+                                    <label class="block text-xs text-gray-400 mb-1 sm:mb-1.5">Nombre *</label>
                                     <input id="profile-nombre" type="text" placeholder="Andrea" class="profile-input w-full">
                                 </div>
                                 <div>
-                                    <label class="block text-xs text-gray-400 mb-1.5">Apellido *</label>
+                                    <label class="block text-xs text-gray-400 mb-1 sm:mb-1.5">Apellido *</label>
                                     <input id="profile-apellido" type="text" placeholder="Carazas" class="profile-input w-full">
                                 </div>
                             </div>
                             <div>
-                                <label class="block text-xs text-gray-400 mb-1.5">DNI *</label>
+                                <label class="block text-xs text-gray-400 mb-1 sm:mb-1.5">DNI *</label>
                                 <input id="profile-dni" type="text" placeholder="60795045" maxlength="8" class="profile-input w-full">
                             </div>
-                            <div class="grid grid-cols-2 gap-4">
+                            <div class="grid grid-cols-2 gap-3 sm:gap-4">
                                 <div>
-                                    <label class="block text-xs text-gray-400 mb-1.5">Fecha de Nacimiento</label>
+                                    <label class="block text-xs text-gray-400 mb-1 sm:mb-1.5">Nacimiento</label>
                                     <input id="profile-nacimiento" type="date" class="profile-input w-full">
                                 </div>
                                 <div>
-                                    <label class="block text-xs text-gray-400 mb-1.5">Género</label>
+                                    <label class="block text-xs text-gray-400 mb-1 sm:mb-1.5">Género</label>
                                     <div class="relative">
                                         <select id="profile-genero" class="profile-input w-full appearance-none pr-8">
                                             <option value="">Seleccionar</option>
@@ -323,208 +337,129 @@
                                 </div>
                             </div>
                             <div>
-                                <label class="block text-xs text-gray-400 mb-1.5">Correo electrónico</label>
+                                <label class="block text-xs text-gray-400 mb-1 sm:mb-1.5">Correo electrónico</label>
                                 <input id="profile-correo" type="email" readonly class="profile-input w-full opacity-50 cursor-not-allowed">
                             </div>
-                            <div class="grid grid-cols-2 gap-4">
+                            <div class="grid grid-cols-2 gap-3 sm:gap-4">
                                 <div>
-                                    <label class="block text-xs text-gray-400 mb-1.5">Ciudad</label>
+                                    <label class="block text-xs text-gray-400 mb-1 sm:mb-1.5">Ciudad</label>
                                     <input id="profile-ciudad" type="text" placeholder="Lima" class="profile-input w-full">
                                 </div>
                                 <div>
-                                    <label class="block text-xs text-gray-400 mb-1.5">Dirección</label>
+                                    <label class="block text-xs text-gray-400 mb-1 sm:mb-1.5">Dirección</label>
                                     <input id="profile-direccion" type="text" placeholder="Av. Garcilaso 133" class="profile-input w-full">
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- ══════════════════════════════════════
-                         PASO 2 — Elige tu evento
-                    ══════════════════════════════════════ -->
-                    <div class="step-slide p-8 md:p-10">
-                        <div class="step-header mb-5">
+                    <!-- PASO 2 -->
+                    <div class="step-slide p-5 sm:p-8 md:p-10">
+                        <div class="step-header mb-4 sm:mb-5">
                             <div class="step-number">2</div>
                             <div>
-                                <p class="font-bold text-base">Elige tu evento</p>
-                                <p class="text-gray-400 text-xs">Selecciona el evento, zona y cantidad de entradas</p>
+                                <p class="font-bold text-sm sm:text-base">Elige tu evento</p>
+                                <p class="text-gray-400 text-xs">Selecciona el evento, zona y cantidad</p>
                             </div>
                         </div>
-                        <div class="info-card mb-5">
-                            <p class="text-sm text-gray-300 leading-relaxed">Selecciona el evento disponible y escoge la <strong class="text-white">zona</strong> y <strong class="text-white">cantidad de entradas</strong> que deseas comprar.</p>
+                        <div class="info-card mb-4 sm:mb-5">
+                            <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">Selecciona el evento disponible y escoge la <strong class="text-white">zona</strong> y <strong class="text-white">cantidad de entradas</strong> que deseas comprar.</p>
                         </div>
-                        <div class="space-y-3">
+                        <div class="space-y-2 sm:space-y-3">
                             <div class="step-feature-row">
-                                <div>
-                                    <p class="text-sm font-semibold">Explora la cartelera</p>
-                                    <p class="text-xs text-gray-400">Filtra por fecha, género musical o artista</p>
-                                </div>
+                                <div><p class="text-xs sm:text-sm font-semibold">Explora la cartelera</p><p class="text-xs text-gray-400">Filtra por fecha, género musical o artista</p></div>
                             </div>
                             <div class="step-feature-row">
-                                <div>
-                                    <p class="text-sm font-semibold">Elige tu zona</p>
-                                    <p class="text-xs text-gray-400">Platinum, VIP, General, Occidente o Tribuna Norte</p>
-                                </div>
+                                <div><p class="text-xs sm:text-sm font-semibold">Elige tu zona</p><p class="text-xs text-gray-400">Platinum, VIP, General, Occidente o Tribuna Norte</p></div>
                             </div>
                             <div class="step-feature-row">
-                                <div>
-                                    <p class="text-sm font-semibold">Selecciona cantidad</p>
-                                    <p class="text-xs text-gray-400">Puedes comprar hasta 6 entradas por orden</p>
-                                </div>
+                                <div><p class="text-xs sm:text-sm font-semibold">Selecciona cantidad</p><p class="text-xs text-gray-400">Puedes comprar hasta 6 entradas por orden</p></div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- ══════════════════════════════════════
-                         PASO 3 — Revisa tu pedido
-                    ══════════════════════════════════════ -->
-                    <div class="step-slide p-8 md:p-10">
-                        <div class="step-header mb-5">
+                    <!-- PASO 3 -->
+                    <div class="step-slide p-5 sm:p-8 md:p-10">
+                        <div class="step-header mb-4 sm:mb-5">
                             <div class="step-number">3</div>
                             <div>
-                                <p class="font-bold text-base">Revisa tu pedido</p>
+                                <p class="font-bold text-sm sm:text-base">Revisa tu pedido</p>
                                 <p class="text-gray-400 text-xs">Verifica el resumen antes de pagar</p>
                             </div>
                         </div>
-                        <div class="info-card mb-5">
-                            <p class="text-sm text-gray-300 leading-relaxed">Verifica el resumen de tu compra: <strong class="text-white">cantidad de entradas</strong>, <strong class="text-white">zona seleccionada</strong> y <strong class="text-white">monto total</strong> antes de continuar.</p>
+                        <div class="info-card mb-4 sm:mb-5">
+                            <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">Verifica el resumen: <strong class="text-white">cantidad</strong>, <strong class="text-white">zona</strong> y <strong class="text-white">monto total</strong> antes de continuar.</p>
                         </div>
-                        <div class="space-y-3">
-                            <div class="step-feature-row">
-                                <div>
-                                    <p class="text-sm font-semibold">Detalle del evento</p>
-                                    <p class="text-xs text-gray-400">Nombre, fecha, hora y lugar del concierto</p>
-                                </div>
-                            </div>
-                            <div class="step-feature-row">
-                                <div>
-                                    <p class="text-sm font-semibold">Desglose de precios</p>
-                                    <p class="text-xs text-gray-400">Subtotal por zona + cargo por servicio</p>
-                                </div>
-                            </div>
-                            <div class="step-feature-row">
-                                <div>
-                                    <p class="text-sm font-semibold">Ajusta si es necesario</p>
-                                    <p class="text-xs text-gray-400">Puedes modificar la cantidad antes de confirmar</p>
-                                </div>
-                            </div>
+                        <div class="space-y-2 sm:space-y-3">
+                            <div class="step-feature-row"><div><p class="text-xs sm:text-sm font-semibold">Detalle del evento</p><p class="text-xs text-gray-400">Nombre, fecha, hora y lugar del concierto</p></div></div>
+                            <div class="step-feature-row"><div><p class="text-xs sm:text-sm font-semibold">Desglose de precios</p><p class="text-xs text-gray-400">Subtotal por zona + cargo por servicio</p></div></div>
+                            <div class="step-feature-row"><div><p class="text-xs sm:text-sm font-semibold">Ajusta si es necesario</p><p class="text-xs text-gray-400">Puedes modificar la cantidad antes de confirmar</p></div></div>
                         </div>
                     </div>
 
-                    <!-- ══════════════════════════════════════
-                         PASO 4 — Realiza el pago
-                    ══════════════════════════════════════ -->
-                    <div class="step-slide p-8 md:p-10">
-                        <div class="step-header mb-5">
+                    <!-- PASO 4 -->
+                    <div class="step-slide p-5 sm:p-8 md:p-10">
+                        <div class="step-header mb-4 sm:mb-5">
                             <div class="step-number">4</div>
                             <div>
-                                <p class="font-bold text-base">Realiza el pago</p>
+                                <p class="font-bold text-sm sm:text-base">Realiza el pago</p>
                                 <p class="text-gray-400 text-xs">Rápido y seguro con QR</p>
                             </div>
                         </div>
-                        <div class="info-card mb-5">
-                            <p class="text-sm text-gray-300 leading-relaxed">Completa tu compra escaneando el <strong class="text-white">código QR de pago</strong> de forma rápida y segura.</p>
+                        <div class="info-card mb-4 sm:mb-5">
+                            <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">Completa tu compra escaneando el <strong class="text-white">código QR de pago</strong> de forma rápida y segura.</p>
                         </div>
-                        <div class="space-y-3">
-                            <div class="step-feature-row">
-                                <div>
-                                    <p class="text-sm font-semibold">Escanea el QR</p>
-                                    <p class="text-xs text-gray-400">Usa Yape, Plin o cualquier app de pagos QR</p>
-                                </div>
-                            </div>
-                            <div class="step-feature-row">
-                                <div>
-                                    <p class="text-sm font-semibold">También por tarjeta</p>
-                                    <p class="text-xs text-gray-400">Visa, Mastercard o PayPal</p>
-                                </div>
-                            </div>
-                            <div class="step-feature-row">
-                                <div>
-                                    <p class="text-sm font-semibold">Pago encriptado</p>
-                                    <p class="text-xs text-gray-400">Tus datos bancarios están 100% protegidos</p>
-                                </div>
-                            </div>
+                        <div class="space-y-2 sm:space-y-3">
+                            <div class="step-feature-row"><div><p class="text-xs sm:text-sm font-semibold">Escanea el QR</p><p class="text-xs text-gray-400">Usa Yape, Plin o cualquier app de pagos QR</p></div></div>
+                            <div class="step-feature-row"><div><p class="text-xs sm:text-sm font-semibold">También por tarjeta</p><p class="text-xs text-gray-400">Visa, Mastercard o PayPal</p></div></div>
+                            <div class="step-feature-row"><div><p class="text-xs sm:text-sm font-semibold">Pago encriptado</p><p class="text-xs text-gray-400">Tus datos bancarios están 100% protegidos</p></div></div>
                         </div>
                     </div>
 
-                    <!-- ══════════════════════════════════════
-                         PASO 5 — Obtén tu ticket
-                    ══════════════════════════════════════ -->
-                    <div class="step-slide p-8 md:p-10">
-                        <div class="step-header mb-5">
+                    <!-- PASO 5 -->
+                    <div class="step-slide p-5 sm:p-8 md:p-10">
+                        <div class="step-header mb-4 sm:mb-5">
                             <div class="step-number">5</div>
                             <div>
-                                <p class="font-bold text-base">Obtén tu ticket</p>
+                                <p class="font-bold text-sm sm:text-base">Obtén tu ticket</p>
                                 <p class="text-gray-400 text-xs">Tu entrada digital te espera</p>
                             </div>
                         </div>
-                        <div class="info-card mb-5">
-                            <p class="text-sm text-gray-300 leading-relaxed">Después del pago exitoso, se generará tu <strong class="text-white">ticket digital con código QR</strong> para ingresar al evento.</p>
+                        <div class="info-card mb-4 sm:mb-5">
+                            <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">Después del pago, se generará tu <strong class="text-white">ticket digital con código QR</strong> para ingresar al evento.</p>
                         </div>
-                        <div class="space-y-3">
-                            <div class="step-feature-row">
-                                <div>
-                                    <p class="text-sm font-semibold">Envío al correo</p>
-                                    <p class="text-xs text-gray-400">Recibirás tu ticket en tu email registrado</p>
-                                </div>
-                            </div>
-                            <div class="step-feature-row">
-                                <div>
-                                    <p class="text-sm font-semibold">Ticket en la app</p>
-                                    <p class="text-xs text-gray-400">Disponible en "Mis Entradas" desde tu perfil</p>
-                                </div>
-                            </div>
-                            <div class="step-feature-row">
-                                <div>
-                                    <p class="text-sm font-semibold">Ingreso al evento</p>
-                                    <p class="text-xs text-gray-400">Muestra el QR en la puerta, sin impresión</p>
-                                </div>
-                            </div>
+                        <div class="space-y-2 sm:space-y-3">
+                            <div class="step-feature-row"><div><p class="text-xs sm:text-sm font-semibold">Envío al correo</p><p class="text-xs text-gray-400">Recibirás tu ticket en tu email registrado</p></div></div>
+                            <div class="step-feature-row"><div><p class="text-xs sm:text-sm font-semibold">Ticket en la app</p><p class="text-xs text-gray-400">Disponible en "Mis Entradas" desde tu perfil</p></div></div>
+                            <div class="step-feature-row"><div><p class="text-xs sm:text-sm font-semibold">Ingreso al evento</p><p class="text-xs text-gray-400">Muestra el QR en la puerta, sin impresión</p></div></div>
                         </div>
                     </div>
 
-                    <!-- ══════════════════════════════════════
-                         PASO 6 — Evalúa tu experiencia
-                    ══════════════════════════════════════ -->
-                    <div class="step-slide p-8 md:p-10">
-                        <div class="step-header mb-5">
+                    <!-- PASO 6 -->
+                    <div class="step-slide p-5 sm:p-8 md:p-10">
+                        <div class="step-header mb-4 sm:mb-5">
                             <div class="step-number">6</div>
                             <div>
-                                <p class="font-bold text-base">Evalúa tu experiencia</p>
+                                <p class="font-bold text-sm sm:text-base">Evalúa tu experiencia</p>
                                 <p class="text-gray-400 text-xs">Tu opinión nos ayuda a mejorar</p>
                             </div>
                         </div>
-                        <div class="info-card mb-5">
-                            <p class="text-sm text-gray-300 leading-relaxed">Al finalizar, completa la <strong class="text-white">encuesta de satisfacción</strong> para ayudarnos a mejorar la aplicación.</p>
+                        <div class="info-card mb-4 sm:mb-5">
+                            <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">Al finalizar, completa la <strong class="text-white">encuesta de satisfacción</strong> para ayudarnos a mejorar la aplicación.</p>
                         </div>
-                        <div class="space-y-3 mb-5">
-                            <div class="step-feature-row">
-                                <div>
-                                    <p class="text-sm font-semibold">Encuesta breve</p>
-                                    <p class="text-xs text-gray-400">Solo 5 preguntas, toma menos de 2 minutos</p>
-                                </div>
-                            </div>
-                            <div class="step-feature-row">
-                                <div>
-                                    <p class="text-sm font-semibold">Gana beneficios</p>
-                                    <p class="text-xs text-gray-400">Los usuarios activos reciben descuentos exclusivos</p>
-                                </div>
-                            </div>
-                            <div class="step-feature-row">
-                                <div>
-                                    <p class="text-sm font-semibold">Mejora continua</p>
-                                    <p class="text-xs text-gray-400">Tu feedback moldea las próximas funciones</p>
-                                </div>
-                            </div>
+                        <div class="space-y-2 sm:space-y-3 mb-4 sm:mb-5">
+                            <div class="step-feature-row"><div><p class="text-xs sm:text-sm font-semibold">Encuesta breve</p><p class="text-xs text-gray-400">Solo 5 preguntas, toma menos de 2 minutos</p></div></div>
+                            <div class="step-feature-row"><div><p class="text-xs sm:text-sm font-semibold">Gana beneficios</p><p class="text-xs text-gray-400">Los usuarios activos reciben descuentos exclusivos</p></div></div>
+                            <div class="step-feature-row"><div><p class="text-xs sm:text-sm font-semibold">Mejora continua</p><p class="text-xs text-gray-400">Tu feedback moldea las próximas funciones</p></div></div>
                         </div>
                         <p class="text-xs text-gray-500 text-center">Al continuar aceptas nuestros <span class="text-[#FF2D55] cursor-pointer hover:underline">Términos y Condiciones</span>.</p>
                     </div>
 
                 </div><!-- /steps-wrapper -->
-            </div><!-- /tarjeta -->
+            </div><!-- /carousel-container -->
 
             <!-- Navegación -->
-            <div class="flex items-center justify-between mt-6 px-1">
+            <div class="flex items-center justify-between mt-5 sm:mt-6 px-1">
                 <button id="step-back-btn" onclick="profileStepBack()"
                         class="flex items-center gap-2 text-gray-400 hover:text-white transition text-sm font-semibold"
                         style="visibility:hidden">
@@ -534,17 +469,16 @@
                     Atrás
                 </button>
                 <button id="step-next-btn" onclick="profileStepNext()"
-                        class="btn-primary px-10 py-3 font-bold text-sm uppercase tracking-wider">
+                        class="btn-primary px-8 sm:px-10 py-2.5 sm:py-3 font-bold text-sm uppercase tracking-wider">
                     Siguiente
                 </button>
             </div>
         </div>
-
     </section>
 
 </main>
 
-<footer class="mt-20 py-12 border-t border-white/5 text-center text-gray-500 text-sm">
+<footer class="mt-12 sm:mt-20 py-8 sm:py-12 border-t border-white/5 text-center text-gray-500 text-xs sm:text-sm">
     <p>© 2026 TickiMochi. Hecho para amantes de la música.</p>
 </footer>
 
