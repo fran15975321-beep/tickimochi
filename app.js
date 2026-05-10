@@ -80,6 +80,8 @@ function handleCredentialResponse(response) {
         updateUserUI();
         document.getElementById('loginScreen').classList.add('hidden');
         document.getElementById('login-error').style.display = 'none';
+        showSection('profile');
+        loadProfile();
     } catch (e) {
         document.getElementById('login-error').style.display = 'block';
     }
@@ -132,6 +134,7 @@ function showSection(sectionId) {
     document.querySelectorAll('section').forEach(s => s.classList.add('hidden-section'));
     document.getElementById(sectionId).classList.remove('hidden-section');
     window.scrollTo(0, 0);
+    if (sectionId === 'profile') loadProfile();
 }
 
 function buyFeaturedTicket(id) {
@@ -286,6 +289,96 @@ function openSurvey() {
 }
 
 // =====================================================
+// Profile
+// =====================================================
+function loadProfile() {
+    if (!currentUser) return;
+
+    // Foto de Google o placeholder
+    const avatarEl = document.getElementById('profile-avatar');
+    const placeholderEl = document.getElementById('profile-avatar-placeholder');
+    if (currentUser.picture) {
+        avatarEl.src = currentUser.picture;
+        avatarEl.classList.remove('hidden');
+        placeholderEl.classList.add('hidden');
+    }
+
+    // Nombre completo y email en el encabezado
+    document.getElementById('profile-full-name').textContent = currentUser.name || '';
+    document.getElementById('profile-email-display').textContent = currentUser.email || '';
+
+    // Correo autollenado (readonly)
+    document.getElementById('profile-correo').value = currentUser.email || '';
+
+    // Pre-rellenar nombre/apellido desde Google si están disponibles
+    const nameParts = (currentUser.name || '').split(' ');
+    document.getElementById('profile-nombre').value = nameParts[0] || '';
+    document.getElementById('profile-apellido').value = nameParts.slice(1).join(' ') || '';
+
+    // Cargar datos guardados previamente
+    const saved = localStorage.getItem('tickimochi_profile');
+    if (saved) {
+        const data = JSON.parse(saved);
+        if (data.nombre)     document.getElementById('profile-nombre').value     = data.nombre;
+        if (data.apellido)   document.getElementById('profile-apellido').value   = data.apellido;
+        if (data.dni)        document.getElementById('profile-dni').value         = data.dni;
+        if (data.nacimiento) document.getElementById('profile-nacimiento').value  = data.nacimiento;
+        if (data.ciudad)     document.getElementById('profile-ciudad').value      = data.ciudad;
+        if (data.direccion)  document.getElementById('profile-direccion').value   = data.direccion;
+        if (data.genero)     document.getElementById('profile-genero').value      = data.genero;
+        if (data.avatarUrl) {
+            avatarEl.src = data.avatarUrl;
+            avatarEl.classList.remove('hidden');
+            placeholderEl.classList.add('hidden');
+        }
+    }
+}
+
+function saveProfile() {
+    const data = {
+        nombre:     document.getElementById('profile-nombre').value,
+        apellido:   document.getElementById('profile-apellido').value,
+        dni:        document.getElementById('profile-dni').value,
+        nacimiento: document.getElementById('profile-nacimiento').value,
+        ciudad:     document.getElementById('profile-ciudad').value,
+        direccion:  document.getElementById('profile-direccion').value,
+        genero:     document.getElementById('profile-genero').value,
+        avatarUrl:  document.getElementById('profile-avatar').src || ''
+    };
+    localStorage.setItem('tickimochi_profile', JSON.stringify(data));
+
+    // Actualizar encabezado con nombre guardado
+    const fullName = [data.nombre, data.apellido].filter(Boolean).join(' ');
+    if (fullName) {
+        document.getElementById('profile-full-name').textContent = fullName;
+        document.getElementById('user-name').textContent = data.nombre;
+    }
+
+    // Feedback visual en el botón
+    const btn = document.querySelector('#profile button[onclick="saveProfile()"]');
+    const original = btn.textContent;
+    btn.textContent = '✓ Guardado';
+    btn.style.background = '#22c55e';
+    setTimeout(() => {
+        btn.textContent = original;
+        btn.style.background = '';
+    }, 2000);
+}
+
+function previewAvatar(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        const avatarEl = document.getElementById('profile-avatar');
+        avatarEl.src = e.target.result;
+        avatarEl.classList.remove('hidden');
+        document.getElementById('profile-avatar-placeholder').classList.add('hidden');
+    };
+    reader.readAsDataURL(file);
+}
+
+// =====================================================
 // Init
 // =====================================================
 document.body.classList.add('loading');
@@ -298,6 +391,8 @@ window.onload = () => {
     if (savedUser) {
         currentUser = JSON.parse(savedUser);
         updateUserUI();
+        showSection('profile');
+        loadProfile();
     }
 
     setTimeout(() => {
