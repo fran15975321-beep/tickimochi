@@ -166,3 +166,27 @@ body.loading {
     border-radius: 10px;
     border: 1px solid rgba(255, 45, 85, 0.2);
 }
+
+/* ---------- Profile Inputs ---------- */
+.profile-input {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 14px 18px;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+}
+.profile-input:focus {
+    border-color: var(--neon-red);
+    box-shadow: 0 0 0 3px rgba(255, 45, 85, 0.15);
+}
+.profile-input::placeholder {
+    color: rgba(255, 255, 255, 0.2);
+}
+.profile-input option {
+    background: #1F2937;
+    color: white;
+}
