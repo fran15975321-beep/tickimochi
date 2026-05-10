@@ -1,5 +1,5 @@
 /* =====================================================
-   TickiMochi — app.js
+   TickiMochi — app.js  (responsive)
    ===================================================== */
 
 let currentUser = null;
@@ -8,12 +8,12 @@ const CLIENT_ID = '563182274008-lvsvetetpqm1l48tiglhju0aroqod7ie.apps.googleuser
 
 // --- Mock Data ---
 const eventsData = [
-    { id: 1, name: "Reggaeton Lima Festival",  date: "Sábado 28 de Marzo",       venue: "Estadio Nacional",     img: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&q=80&w=2070", price: 150 },
-    { id: 2, name: "Brightlight Music Fest",   date: "Viernes 12 de Junio",      venue: "Arena 1",              img: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&q=80&w=2070", price: 200 },
-    { id: 3, name: "Electronic Paradise",      date: "Sábado 05 de Julio",       venue: "Club Cultural",        img: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=2070", price: 180 },
-    { id: 4, name: "Rock Symphony",            date: "Jueves 20 de Agosto",      venue: "Gran Teatro Nacional", img: "https://images.unsplash.com/photo-1459749411177-042180ce673c?auto=format&fit=crop&q=80&w=2070", price: 120 },
-    { id: 5, name: "K-Pop World Tour",         date: "Domingo 15 de Septiembre", venue: "Jockey Club",          img: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&q=80&w=2070", price: 350 },
-    { id: 6, name: "Jazz Under the Moon",      date: "Viernes 02 de Octubre",    venue: "Barranco Arena",       img: "https://images.unsplash.com/photo-1514525253344-f814d074e015?auto=format&fit=crop&q=80&w=2070", price: 90  }
+    { id: 1, name: "Reggaeton Lima Festival",  date: "Sáb. 28 de Marzo",        venue: "Estadio Nacional",     img: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&q=80&w=2070", price: 150 },
+    { id: 2, name: "Brightlight Music Fest",   date: "Vie. 12 de Junio",         venue: "Arena 1",              img: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&q=80&w=2070", price: 200 },
+    { id: 3, name: "Electronic Paradise",      date: "Sáb. 05 de Julio",         venue: "Club Cultural",        img: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=2070", price: 180 },
+    { id: 4, name: "Rock Symphony",            date: "Jue. 20 de Agosto",        venue: "Gran Teatro Nacional", img: "https://images.unsplash.com/photo-1459749411177-042180ce673c?auto=format&fit=crop&q=80&w=2070", price: 120 },
+    { id: 5, name: "K-Pop World Tour",         date: "Dom. 15 de Septiembre",    venue: "Jockey Club",          img: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&q=80&w=2070", price: 350 },
+    { id: 6, name: "Jazz Under the Moon",      date: "Vie. 02 de Octubre",       venue: "Barranco Arena",       img: "https://images.unsplash.com/photo-1514525253344-f814d074e015?auto=format&fit=crop&q=80&w=2070", price: 90  }
 ];
 
 let currentEvent = null;
@@ -41,7 +41,7 @@ function initializeGoogleSignIn() {
         {
             theme: 'outline',
             size: 'large',
-            width: 280,
+            width: window.innerWidth < 400 ? 240 : 280,
             text: 'signin_with',
             shape: 'pill',
             logo_alignment: 'left'
@@ -85,7 +85,8 @@ function updateUserUI() {
         document.getElementById('connect-btn').classList.add('hidden');
         document.getElementById('user-menu').classList.remove('hidden');
         document.getElementById('user-avatar').src = currentUser.picture;
-        document.getElementById('user-name').textContent = currentUser.name.split(' ')[0];
+        const nameEl = document.getElementById('user-name');
+        if (nameEl) nameEl.textContent = currentUser.name.split(' ')[0];
     } else {
         document.getElementById('connect-btn').classList.remove('hidden');
         document.getElementById('user-menu').classList.add('hidden');
@@ -111,7 +112,32 @@ document.addEventListener('click', function (event) {
     if (!event.target.closest('.user-dropdown')) {
         document.getElementById('user-menu').classList.remove('active');
     }
+    if (!event.target.closest('#mobile-menu') && !event.target.closest('#mobile-menu-btn')) {
+        closeMobileMenu();
+    }
 });
+
+// =====================================================
+// Mobile Menu
+// =====================================================
+function toggleMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    menu.classList.toggle('open');
+    // Force display when open
+    if (menu.classList.contains('open')) {
+        menu.style.display = 'block';
+    }
+}
+
+function closeMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    menu.classList.remove('open');
+    setTimeout(() => {
+        if (!menu.classList.contains('open')) {
+            menu.style.display = '';
+        }
+    }, 300);
+}
 
 // =====================================================
 // Navigation
@@ -123,7 +149,7 @@ function showSection(sectionId) {
     }
     document.querySelectorAll('section').forEach(s => s.classList.add('hidden-section'));
     document.getElementById(sectionId).classList.remove('hidden-section');
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     if (sectionId === 'profile') loadProfile();
 }
 
@@ -147,19 +173,19 @@ function renderGrids() {
 function createCardHtml(event) {
     return `
         <div class="event-card group cursor-pointer" onclick="viewDetail(${event.id})">
-            <div class="h-64 overflow-hidden relative">
-                <img src="${event.img}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" alt="${event.name}">
-                <div class="absolute bottom-4 left-4 bg-[#FF2D55] text-white text-xs font-bold px-3 py-1 rounded-full">DESTACADO</div>
+            <div class="overflow-hidden relative card-img-wrap">
+                <img src="${event.img}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" alt="${event.name}" loading="lazy">
+                <div class="absolute bottom-3 left-3 bg-[#FF2D55] text-white text-[10px] sm:text-xs font-bold px-2 sm:px-3 py-0.5 sm:py-1 rounded-full">DESTACADO</div>
             </div>
-            <div class="p-6">
-                <p class="text-xs text-[#FF2D55] font-bold mb-1 uppercase tracking-tighter">${event.date}</p>
-                <h3 class="text-xl font-bold mb-2 group-hover:text-[#FF2D55] transition">${event.name}</h3>
-                <div class="flex items-center gap-2 text-gray-400 text-sm">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="card-body">
+                <p class="text-[10px] sm:text-xs text-[#FF2D55] font-bold mb-0.5 sm:mb-1 uppercase tracking-tighter">${event.date}</p>
+                <h3 class="font-bold group-hover:text-[#FF2D55] transition line-clamp-2">${event.name}</h3>
+                <div class="flex items-center gap-1.5 sm:gap-2 text-gray-400 text-[10px] sm:text-sm mt-1">
+                    <svg class="w-3 h-3 sm:w-4 sm:h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                     </svg>
-                    ${event.venue}
+                    <span class="truncate">${event.venue}</span>
                 </div>
             </div>
         </div>
@@ -169,36 +195,36 @@ function createCardHtml(event) {
 function viewDetail(id) {
     currentEvent = eventsData.find(e => e.id === id);
     document.getElementById('event-detail-content').innerHTML = `
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div class="rounded-[30px] overflow-hidden shadow-2xl">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-12">
+            <div class="rounded-[20px] sm:rounded-[30px] overflow-hidden shadow-2xl max-h-64 sm:max-h-none">
                 <img src="${currentEvent.img}" class="w-full h-full object-cover" alt="">
             </div>
             <div>
-                <span class="text-[#FF2D55] font-bold tracking-widest text-sm uppercase">Concierto confirmado</span>
-                <h1 class="text-5xl font-black mt-2 mb-6">${currentEvent.name}</h1>
-                <div class="space-y-4 mb-8">
-                    <div class="flex items-center gap-4 text-gray-300">
-                        <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-[#FF2D55]">📅</div>
+                <span class="text-[#FF2D55] font-bold tracking-widest text-xs sm:text-sm uppercase">Concierto confirmado</span>
+                <h1 class="text-2xl sm:text-4xl md:text-5xl font-black mt-2 mb-4 sm:mb-6">${currentEvent.name}</h1>
+                <div class="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
+                    <div class="flex items-center gap-3 sm:gap-4 text-gray-300">
+                        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/5 flex items-center justify-center text-[#FF2D55] shrink-0">📅</div>
                         <div>
-                            <p class="text-sm text-gray-500">Fecha y Hora</p>
-                            <p class="font-semibold">${currentEvent.date}, 20:00</p>
+                            <p class="text-xs sm:text-sm text-gray-500">Fecha y Hora</p>
+                            <p class="font-semibold text-sm sm:text-base">${currentEvent.date}, 20:00</p>
                         </div>
                     </div>
-                    <div class="flex items-center gap-4 text-gray-300">
-                        <div class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-[#FF2D55]">📍</div>
+                    <div class="flex items-center gap-3 sm:gap-4 text-gray-300">
+                        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/5 flex items-center justify-center text-[#FF2D55] shrink-0">📍</div>
                         <div>
-                            <p class="text-sm text-gray-500">Ubicación</p>
-                            <p class="font-semibold">${currentEvent.venue}, Lima</p>
+                            <p class="text-xs sm:text-sm text-gray-500">Ubicación</p>
+                            <p class="font-semibold text-sm sm:text-base">${currentEvent.venue}, Lima</p>
                         </div>
                     </div>
                 </div>
-                <div class="mb-10">
-                    <h4 class="font-bold mb-2">Descripción</h4>
-                    <p class="text-gray-400 leading-relaxed">Prepárate para una noche inolvidable. El festival más grande llega a la ciudad con los mejores artistas internacionales en una producción de nivel mundial. No te pierdas la preventa exclusiva.</p>
+                <div class="mb-6 sm:mb-10">
+                    <h4 class="font-bold mb-2 text-sm sm:text-base">Descripción</h4>
+                    <p class="text-gray-400 leading-relaxed text-sm sm:text-base">Prepárate para una noche inolvidable. El festival más grande llega a la ciudad con los mejores artistas internacionales en una producción de nivel mundial. No te pierdas la preventa exclusiva.</p>
                 </div>
-                <div class="flex items-center gap-6">
-                    <button onclick="goToTickets()" class="btn-primary flex-1 py-4 text-lg font-bold">COMPRAR ENTRADAS</button>
-                    <button class="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 transition">❤️</button>
+                <div class="flex items-center gap-3 sm:gap-6">
+                    <button onclick="goToTickets()" class="btn-primary flex-1 py-3 sm:py-4 text-sm sm:text-lg font-bold">COMPRAR ENTRADAS</button>
+                    <button class="w-12 h-12 sm:w-14 sm:h-14 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 transition text-lg sm:text-xl">❤️</button>
                 </div>
             </div>
         </div>
@@ -231,11 +257,14 @@ function updateQty(type, delta) {
 
 function updateCartDisplay() {
     ['platinum', 'vip', 'general', 'occidente', 'tribunaNorte'].forEach(t => {
-        document.getElementById(`qty-${t}`).innerText = cart[t];
+        const el = document.getElementById(`qty-${t}`);
+        if (el) el.innerText = cart[t];
     });
     const total = Object.keys(cart).reduce((sum, t) => sum + cart[t] * prices[t], 0);
-    document.getElementById('total-price').innerText = `S/ ${total.toFixed(2)}`;
-    document.getElementById('checkout-final-total').innerText = `S/ ${total.toFixed(2)}`;
+    const tp = document.getElementById('total-price');
+    const cft = document.getElementById('checkout-final-total');
+    if (tp) tp.innerText = `S/ ${total.toFixed(2)}`;
+    if (cft) cft.innerText = `S/ ${total.toFixed(2)}`;
 }
 
 function goToCheckout() {
@@ -284,7 +313,6 @@ function openSurvey() {
 const TOTAL_STEPS = 6;
 let currentStep = 0;
 
-// Títulos y subtítulos por paso (para el encabezado superior)
 const stepMeta = [
     { title: 'Completa tu perfil',       subtitle: 'Solo toma un momento. Necesitamos estos datos para activar tu cuenta.' },
     { title: 'Elige tu evento',           subtitle: 'Conoce cómo seleccionar el evento y las entradas que deseas.' },
@@ -294,7 +322,6 @@ const stepMeta = [
     { title: 'Evalúa tu experiencia',     subtitle: 'Tu opinión nos ayuda a seguir mejorando.' },
 ];
 
-// Dots: construye 6 puntos en el contenedor
 function buildDots() {
     const container = document.getElementById('step-dots');
     if (!container) return;
@@ -322,7 +349,6 @@ function updateDots() {
 }
 
 function goToStep(index) {
-    // Solo permite ir a pasos anteriores o al actual
     if (index <= currentStep) {
         currentStep = index;
         syncStepUI();
@@ -330,18 +356,15 @@ function goToStep(index) {
 }
 
 function syncStepUI() {
-    // Slider — use pixel-based translation so slides don't bleed
     const container = document.getElementById('carousel-container');
     const wrapper   = document.getElementById('steps-wrapper');
     if (wrapper && container) {
         const w = container.offsetWidth;
-        // Set each slide to the exact container width
         const slides = wrapper.querySelectorAll('.step-slide');
         slides.forEach(s => { s.style.width = w + 'px'; s.style.flexShrink = '0'; });
         wrapper.style.transform = `translateX(-${currentStep * w}px)`;
     }
 
-    // Barra de progreso
     const pct = Math.round(((currentStep + 1) / TOTAL_STEPS) * 100);
     const bar = document.getElementById('progress-bar');
     if (bar) bar.style.width = pct + '%';
@@ -350,17 +373,14 @@ function syncStepUI() {
     const counterEl = document.getElementById('step-counter');
     if (counterEl) counterEl.textContent = `Paso ${currentStep + 1} de ${TOTAL_STEPS}`;
 
-    // Título y subtítulo
     const meta = stepMeta[currentStep];
     const titleEl = document.getElementById('onboarding-title');
     const subEl   = document.getElementById('onboarding-subtitle');
     if (titleEl && meta) titleEl.textContent = meta.title;
     if (subEl   && meta) subEl.textContent   = meta.subtitle;
 
-    // Dots
     updateDots();
 
-    // Botones de navegación
     const backBtn = document.getElementById('step-back-btn');
     const nextBtn = document.getElementById('step-next-btn');
     if (!backBtn || !nextBtn) return;
@@ -368,11 +388,11 @@ function syncStepUI() {
     backBtn.style.visibility = currentStep === 0 ? 'hidden' : 'visible';
 
     if (currentStep === TOTAL_STEPS - 1) {
-        nextBtn.textContent = '¡Empezar a comprar!';
+        nextBtn.textContent       = '¡Empezar!';
         nextBtn.style.background  = '#22c55e';
         nextBtn.style.boxShadow   = '0 4px 15px rgba(34,197,94,0.35)';
     } else {
-        nextBtn.textContent = 'Siguiente';
+        nextBtn.textContent       = 'Siguiente';
         nextBtn.style.background  = '';
         nextBtn.style.boxShadow   = '';
     }
@@ -380,14 +400,10 @@ function syncStepUI() {
 
 function profileStepNext() {
     if (currentStep === TOTAL_STEPS - 1) {
-        // Último paso → guardar datos y redirigir
         saveProfile();
         return;
     }
-
-    // Validación solo en el paso 1 (datos personales)
     if (currentStep === 0 && !validateStep0()) return;
-
     currentStep++;
     syncStepUI();
 }
@@ -400,16 +416,13 @@ function profileStepBack() {
 
 function validateStep0() {
     if (!document.getElementById('profile-nombre').value.trim()) {
-        showToast('⚠️ El nombre es requerido.', '#FF2D55');
-        return false;
+        showToast('⚠️ El nombre es requerido.', '#FF2D55'); return false;
     }
     if (!document.getElementById('profile-apellido').value.trim()) {
-        showToast('⚠️ El apellido es requerido.', '#FF2D55');
-        return false;
+        showToast('⚠️ El apellido es requerido.', '#FF2D55'); return false;
     }
     if (!document.getElementById('profile-dni').value.trim()) {
-        showToast('⚠️ El DNI es requerido.', '#FF2D55');
-        return false;
+        showToast('⚠️ El DNI es requerido.', '#FF2D55'); return false;
     }
     return true;
 }
@@ -417,13 +430,10 @@ function validateStep0() {
 function loadProfile() {
     if (!currentUser) return;
 
-    // Reset al paso 1
     currentStep = 0;
     buildDots();
-    // Delay so carousel container has rendered and has a real offsetWidth
-    setTimeout(() => syncStepUI(), 50);
+    setTimeout(() => syncStepUI(), 80);
 
-    // Foto de Google
     const avatarEl = document.getElementById('profile-avatar');
     const placeholderEl = document.getElementById('profile-avatar-placeholder');
     if (currentUser.picture) {
@@ -432,15 +442,12 @@ function loadProfile() {
         if (placeholderEl) placeholderEl.classList.add('hidden');
     }
 
-    // Correo autollenado (readonly)
     document.getElementById('profile-correo').value = currentUser.email || '';
 
-    // Pre-rellenar nombre/apellido desde Google
     const nameParts = (currentUser.name || '').split(' ');
     document.getElementById('profile-nombre').value   = nameParts[0] || '';
     document.getElementById('profile-apellido').value = nameParts.slice(1).join(' ') || '';
 
-    // Cargar datos guardados previamente
     const saved = localStorage.getItem('tickimochi_profile');
     if (saved) {
         const data = JSON.parse(saved);
@@ -472,9 +479,11 @@ function saveProfile() {
     };
     localStorage.setItem('tickimochi_profile', JSON.stringify(data));
 
-    // Actualizar navbar
     const fullName = [data.nombre, data.apellido].filter(Boolean).join(' ');
-    if (fullName) document.getElementById('user-name').textContent = data.nombre;
+    if (fullName) {
+        const nameEl = document.getElementById('user-name');
+        if (nameEl) nameEl.textContent = data.nombre;
+    }
 
     showToast('✓ Perfil guardado. ¡Bienvenido!', '#22c55e');
     setTimeout(() => showSection('home'), 1400);
@@ -488,13 +497,15 @@ function showToast(message, color = '#22c55e') {
     toast.id = 'toast-notification';
     toast.textContent = message;
     toast.style.cssText = `
-        position: fixed; bottom: 32px; left: 50%;
+        position: fixed; bottom: 24px; left: 50%;
         transform: translateX(-50%) translateY(20px);
         background: ${color}; color: white;
-        padding: 14px 32px; border-radius: 999px;
-        font-weight: 700; font-size: 15px; z-index: 9999;
+        padding: 12px 24px; border-radius: 999px;
+        font-weight: 700; font-size: 14px; z-index: 9999;
         box-shadow: 0 8px 30px ${color}66;
-        opacity: 0; transition: all 0.35s ease; white-space: nowrap;
+        opacity: 0; transition: all 0.35s ease;
+        white-space: nowrap; max-width: 90vw;
+        text-align: center;
     `;
     document.body.appendChild(toast);
     requestAnimationFrame(() => requestAnimationFrame(() => {
@@ -522,19 +533,72 @@ function previewAvatar(event) {
 }
 
 // =====================================================
+// Card styles — injected for mobile responsiveness
+// =====================================================
+function injectCardStyles() {
+    const style = document.createElement('style');
+    style.textContent = `
+        .card-img-wrap { height: 140px; }
+        @media (min-width: 640px) { .card-img-wrap { height: 256px; } }
+        .card-body { padding: 10px 12px 12px; }
+        @media (min-width: 640px) { .card-body { padding: 24px; } }
+        .event-card h3 { font-size: 13px; line-height: 1.3; margin-bottom: 2px; }
+        @media (min-width: 640px) { .event-card h3 { font-size: 20px; margin-bottom: 8px; } }
+        .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    `;
+    document.head.appendChild(style);
+}
+
+// =====================================================
+// Swipe support for carousel
+// =====================================================
+function initSwipe() {
+    const wrapper = document.getElementById('carousel-container');
+    if (!wrapper) return;
+    let startX = 0;
+    let isDragging = false;
+
+    wrapper.addEventListener('touchstart', e => {
+        startX = e.touches[0].clientX;
+        isDragging = true;
+    }, { passive: true });
+
+    wrapper.addEventListener('touchend', e => {
+        if (!isDragging) return;
+        const diff = startX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) {
+            if (diff > 0 && currentStep < TOTAL_STEPS - 1) {
+                if (currentStep === 0 && !validateStep0()) return;
+                currentStep++;
+                syncStepUI();
+            } else if (diff < 0 && currentStep > 0) {
+                currentStep--;
+                syncStepUI();
+            }
+        }
+        isDragging = false;
+    }, { passive: true });
+}
+
+// =====================================================
 // Init
 // =====================================================
 document.body.classList.add('loading');
 
 window.addEventListener('resize', () => {
-    if (document.getElementById('profile') && !document.getElementById('profile').classList.contains('hidden-section')) {
+    const profile = document.getElementById('profile');
+    if (profile && !profile.classList.contains('hidden-section')) {
         syncStepUI();
     }
 });
 
 window.onload = () => {
+    injectCardStyles();
     renderGrids();
     initializeGoogleSignIn();
+
+    // Init swipe after a short delay so DOM is ready
+    setTimeout(initSwipe, 500);
 
     const savedUser = localStorage.getItem('tickimochi_user');
     if (savedUser) {
@@ -547,7 +611,6 @@ window.onload = () => {
     setTimeout(() => {
         document.getElementById('splash').remove();
         if (!currentUser) {
-            // Show home by default, hide all others
             document.querySelectorAll('section').forEach(s => s.classList.add('hidden-section'));
             document.getElementById('home').classList.remove('hidden-section');
             document.getElementById('loginScreen').classList.remove('hidden');
