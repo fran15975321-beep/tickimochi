@@ -254,15 +254,15 @@
 
         <!-- Tarjeta carrusel -->
         <div class="w-full max-w-lg">
-            <div class="relative overflow-hidden rounded-[30px] bg-[#1F2937] border border-white/5 shadow-2xl" style="min-height: 460px;">
+            <div id="carousel-container" class="relative overflow-hidden rounded-[30px] bg-[#1F2937] border border-white/5 shadow-2xl">
                 <div id="steps-wrapper" class="flex transition-transform duration-500 ease-in-out" style="will-change: transform;">
 
                     <!-- ══════════════════════════════════════
                          PASO 1 — Tu perfil (datos personales)
                     ══════════════════════════════════════ -->
-                    <div class="step-slide min-w-full p-8 md:p-10">
+                    <div class="step-slide p-8 md:p-10">
                         <div class="step-header mb-6">
-                            <span class="step-emoji">👤</span>
+                            <div class="step-number">1</div>
                             <div>
                                 <p class="font-bold text-base">Tu perfil</p>
                                 <p class="text-gray-400 text-xs">Foto y datos personales</p>
@@ -340,36 +340,33 @@
                     </div>
 
                     <!-- ══════════════════════════════════════
-                         PASO 2 — Elige tu evento 🎶
+                         PASO 2 — Elige tu evento
                     ══════════════════════════════════════ -->
-                    <div class="step-slide min-w-full p-8 md:p-10 flex flex-col justify-center">
-                        <div class="step-header mb-6">
-                            <span class="step-emoji">🎶</span>
+                    <div class="step-slide p-8 md:p-10">
+                        <div class="step-header mb-5">
+                            <div class="step-number">2</div>
                             <div>
                                 <p class="font-bold text-base">Elige tu evento</p>
                                 <p class="text-gray-400 text-xs">Selecciona el evento, zona y cantidad de entradas</p>
                             </div>
                         </div>
-                        <div class="info-card mb-6">
+                        <div class="info-card mb-5">
                             <p class="text-sm text-gray-300 leading-relaxed">Selecciona el evento disponible y escoge la <strong class="text-white">zona</strong> y <strong class="text-white">cantidad de entradas</strong> que deseas comprar.</p>
                         </div>
-                        <div class="space-y-4">
+                        <div class="space-y-3">
                             <div class="step-feature-row">
-                                <div class="step-feature-icon">🗓️</div>
                                 <div>
                                     <p class="text-sm font-semibold">Explora la cartelera</p>
                                     <p class="text-xs text-gray-400">Filtra por fecha, género musical o artista</p>
                                 </div>
                             </div>
                             <div class="step-feature-row">
-                                <div class="step-feature-icon">🎯</div>
                                 <div>
                                     <p class="text-sm font-semibold">Elige tu zona</p>
                                     <p class="text-xs text-gray-400">Platinum, VIP, General, Occidente o Tribuna Norte</p>
                                 </div>
                             </div>
                             <div class="step-feature-row">
-                                <div class="step-feature-icon">🔢</div>
                                 <div>
                                     <p class="text-sm font-semibold">Selecciona cantidad</p>
                                     <p class="text-xs text-gray-400">Puedes comprar hasta 6 entradas por orden</p>
@@ -379,36 +376,33 @@
                     </div>
 
                     <!-- ══════════════════════════════════════
-                         PASO 3 — Revisa tu pedido 🧾
+                         PASO 3 — Revisa tu pedido
                     ══════════════════════════════════════ -->
-                    <div class="step-slide min-w-full p-8 md:p-10 flex flex-col justify-center">
-                        <div class="step-header mb-6">
-                            <span class="step-emoji">🧾</span>
+                    <div class="step-slide p-8 md:p-10">
+                        <div class="step-header mb-5">
+                            <div class="step-number">3</div>
                             <div>
                                 <p class="font-bold text-base">Revisa tu pedido</p>
                                 <p class="text-gray-400 text-xs">Verifica el resumen antes de pagar</p>
                             </div>
                         </div>
-                        <div class="info-card mb-6">
+                        <div class="info-card mb-5">
                             <p class="text-sm text-gray-300 leading-relaxed">Verifica el resumen de tu compra: <strong class="text-white">cantidad de entradas</strong>, <strong class="text-white">zona seleccionada</strong> y <strong class="text-white">monto total</strong> antes de continuar.</p>
                         </div>
-                        <div class="space-y-4">
+                        <div class="space-y-3">
                             <div class="step-feature-row">
-                                <div class="step-feature-icon">✅</div>
                                 <div>
                                     <p class="text-sm font-semibold">Detalle del evento</p>
                                     <p class="text-xs text-gray-400">Nombre, fecha, hora y lugar del concierto</p>
                                 </div>
                             </div>
                             <div class="step-feature-row">
-                                <div class="step-feature-icon">💰</div>
                                 <div>
                                     <p class="text-sm font-semibold">Desglose de precios</p>
                                     <p class="text-xs text-gray-400">Subtotal por zona + cargo por servicio</p>
                                 </div>
                             </div>
                             <div class="step-feature-row">
-                                <div class="step-feature-icon">🔄</div>
                                 <div>
                                     <p class="text-sm font-semibold">Ajusta si es necesario</p>
                                     <p class="text-xs text-gray-400">Puedes modificar la cantidad antes de confirmar</p>
@@ -418,36 +412,33 @@
                     </div>
 
                     <!-- ══════════════════════════════════════
-                         PASO 4 — Realiza el pago 💳
+                         PASO 4 — Realiza el pago
                     ══════════════════════════════════════ -->
-                    <div class="step-slide min-w-full p-8 md:p-10 flex flex-col justify-center">
-                        <div class="step-header mb-6">
-                            <span class="step-emoji">💳</span>
+                    <div class="step-slide p-8 md:p-10">
+                        <div class="step-header mb-5">
+                            <div class="step-number">4</div>
                             <div>
                                 <p class="font-bold text-base">Realiza el pago</p>
                                 <p class="text-gray-400 text-xs">Rápido y seguro con QR</p>
                             </div>
                         </div>
-                        <div class="info-card mb-6">
+                        <div class="info-card mb-5">
                             <p class="text-sm text-gray-300 leading-relaxed">Completa tu compra escaneando el <strong class="text-white">código QR de pago</strong> de forma rápida y segura.</p>
                         </div>
-                        <div class="space-y-4">
+                        <div class="space-y-3">
                             <div class="step-feature-row">
-                                <div class="step-feature-icon">📱</div>
                                 <div>
                                     <p class="text-sm font-semibold">Escanea el QR</p>
                                     <p class="text-xs text-gray-400">Usa Yape, Plin o cualquier app de pagos QR</p>
                                 </div>
                             </div>
                             <div class="step-feature-row">
-                                <div class="step-feature-icon">💳</div>
                                 <div>
                                     <p class="text-sm font-semibold">También por tarjeta</p>
                                     <p class="text-xs text-gray-400">Visa, Mastercard o PayPal</p>
                                 </div>
                             </div>
                             <div class="step-feature-row">
-                                <div class="step-feature-icon">🔒</div>
                                 <div>
                                     <p class="text-sm font-semibold">Pago encriptado</p>
                                     <p class="text-xs text-gray-400">Tus datos bancarios están 100% protegidos</p>
@@ -457,36 +448,33 @@
                     </div>
 
                     <!-- ══════════════════════════════════════
-                         PASO 5 — Obtén tu ticket 🎫
+                         PASO 5 — Obtén tu ticket
                     ══════════════════════════════════════ -->
-                    <div class="step-slide min-w-full p-8 md:p-10 flex flex-col justify-center">
-                        <div class="step-header mb-6">
-                            <span class="step-emoji">🎫</span>
+                    <div class="step-slide p-8 md:p-10">
+                        <div class="step-header mb-5">
+                            <div class="step-number">5</div>
                             <div>
                                 <p class="font-bold text-base">Obtén tu ticket</p>
                                 <p class="text-gray-400 text-xs">Tu entrada digital te espera</p>
                             </div>
                         </div>
-                        <div class="info-card mb-6">
+                        <div class="info-card mb-5">
                             <p class="text-sm text-gray-300 leading-relaxed">Después del pago exitoso, se generará tu <strong class="text-white">ticket digital con código QR</strong> para ingresar al evento.</p>
                         </div>
-                        <div class="space-y-4">
+                        <div class="space-y-3">
                             <div class="step-feature-row">
-                                <div class="step-feature-icon">📧</div>
                                 <div>
                                     <p class="text-sm font-semibold">Envío al correo</p>
                                     <p class="text-xs text-gray-400">Recibirás tu ticket en tu email registrado</p>
                                 </div>
                             </div>
                             <div class="step-feature-row">
-                                <div class="step-feature-icon">📲</div>
                                 <div>
                                     <p class="text-sm font-semibold">Ticket en la app</p>
                                     <p class="text-xs text-gray-400">Disponible en "Mis Entradas" desde tu perfil</p>
                                 </div>
                             </div>
                             <div class="step-feature-row">
-                                <div class="step-feature-icon">🚪</div>
                                 <div>
                                     <p class="text-sm font-semibold">Ingreso al evento</p>
                                     <p class="text-xs text-gray-400">Muestra el QR en la puerta, sin impresión</p>
@@ -496,43 +484,40 @@
                     </div>
 
                     <!-- ══════════════════════════════════════
-                         PASO 6 — Evalúa tu experiencia ⭐
+                         PASO 6 — Evalúa tu experiencia
                     ══════════════════════════════════════ -->
-                    <div class="step-slide min-w-full p-8 md:p-10 flex flex-col justify-center">
-                        <div class="step-header mb-6">
-                            <span class="step-emoji">⭐</span>
+                    <div class="step-slide p-8 md:p-10">
+                        <div class="step-header mb-5">
+                            <div class="step-number">6</div>
                             <div>
                                 <p class="font-bold text-base">Evalúa tu experiencia</p>
                                 <p class="text-gray-400 text-xs">Tu opinión nos ayuda a mejorar</p>
                             </div>
                         </div>
-                        <div class="info-card mb-6">
+                        <div class="info-card mb-5">
                             <p class="text-sm text-gray-300 leading-relaxed">Al finalizar, completa la <strong class="text-white">encuesta de satisfacción</strong> para ayudarnos a mejorar la aplicación.</p>
                         </div>
-                        <div class="space-y-4 mb-6">
+                        <div class="space-y-3 mb-5">
                             <div class="step-feature-row">
-                                <div class="step-feature-icon">📝</div>
                                 <div>
                                     <p class="text-sm font-semibold">Encuesta breve</p>
                                     <p class="text-xs text-gray-400">Solo 5 preguntas, toma menos de 2 minutos</p>
                                 </div>
                             </div>
                             <div class="step-feature-row">
-                                <div class="step-feature-icon">🎁</div>
                                 <div>
                                     <p class="text-sm font-semibold">Gana beneficios</p>
                                     <p class="text-xs text-gray-400">Los usuarios activos reciben descuentos exclusivos</p>
                                 </div>
                             </div>
                             <div class="step-feature-row">
-                                <div class="step-feature-icon">💡</div>
                                 <div>
                                     <p class="text-sm font-semibold">Mejora continua</p>
                                     <p class="text-xs text-gray-400">Tu feedback moldea las próximas funciones</p>
                                 </div>
                             </div>
                         </div>
-                        <p class="text-xs text-gray-500 text-center mt-2">Al continuar aceptas nuestros <span class="text-[#FF2D55] cursor-pointer hover:underline">Términos y Condiciones</span>.</p>
+                        <p class="text-xs text-gray-500 text-center">Al continuar aceptas nuestros <span class="text-[#FF2D55] cursor-pointer hover:underline">Términos y Condiciones</span>.</p>
                     </div>
 
                 </div><!-- /steps-wrapper -->
