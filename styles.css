@@ -68,7 +68,7 @@ body {
 
 /* ---------- Sections ---------- */
 .hidden-section {
-    display: none;
+    display: none !important;
 }
 
 /* ---------- Scrollbar ---------- */
