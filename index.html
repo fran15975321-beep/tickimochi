@@ -229,112 +229,185 @@
         </div>
     </section>
 
-    <!-- PROFILE -->
-    <section id="profile" class="max-w-5xl mx-auto px-6 py-16 hidden-section">
+    <!-- PROFILE (carrusel de pasos) -->
+    <section id="profile" class="min-h-screen flex flex-col items-center justify-center px-4 py-16 hidden-section">
 
-        <!-- Avatar + nombre -->
-        <div class="flex flex-col items-center mb-14">
-            <div class="relative mb-4">
-                <div class="w-36 h-36 rounded-full bg-[#1F2937] border-4 border-[#FF2D55]/30 overflow-hidden flex items-center justify-center">
-                    <img id="profile-avatar" src="" alt="Avatar"
-                         class="w-full h-full object-cover hidden"
-                         onerror="this.classList.add('hidden'); document.getElementById('profile-avatar-placeholder').classList.remove('hidden')">
-                    <!-- placeholder silueta -->
-                    <svg id="profile-avatar-placeholder" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-24 h-24">
-                        <circle cx="50" cy="35" r="20" fill="#FF2D55"/>
-                        <ellipse cx="50" cy="85" rx="32" ry="22" fill="#FF2D55"/>
-                    </svg>
-                </div>
-                <!-- botón editar foto -->
-                <label for="avatar-upload" class="absolute bottom-1 right-1 w-9 h-9 bg-[#FF2D55] rounded-full flex items-center justify-center cursor-pointer shadow-lg hover:scale-110 transition">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536M9 13l6.586-6.586a2 2 0 112.828 2.828L11.828 15.828a2 2 0 01-1.414.586H9v-2a2 2 0 01.586-1.414z"/>
-                    </svg>
-                </label>
-                <input id="avatar-upload" type="file" accept="image/*" class="hidden" onchange="previewAvatar(event)">
-            </div>
-            <h2 id="profile-full-name" class="text-2xl font-extrabold mt-2"></h2>
-            <p id="profile-email-display" class="text-gray-400 text-sm mt-1"></p>
+        <!-- Encabezado fijo -->
+        <div class="text-center mb-10">
+            <p class="text-[#FF2D55] text-xs font-bold uppercase tracking-widest mb-2">Completa tu perfil</p>
+            <h2 class="text-3xl font-extrabold">¡Bienvenido a TickiMochi!</h2>
+            <p class="text-gray-400 text-sm mt-2">Solo toma un momento. Necesitamos estos datos para que puedas comprar tus entradas.</p>
         </div>
 
-        <!-- Formulario 2 columnas -->
-        <div class="bg-[#1F2937]/60 backdrop-blur-sm border border-white/5 rounded-[30px] p-10">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6">
+        <!-- Indicador de pasos -->
+        <div class="flex items-center gap-2 mb-10" id="step-indicators">
+            <!-- generado por JS -->
+        </div>
 
-                <!-- Nombre -->
-                <div>
-                    <label class="block text-sm text-gray-400 mb-2">Nombre</label>
-                    <input id="profile-nombre" type="text" placeholder="Tu nombre"
-                           class="profile-input w-full">
-                </div>
+        <!-- Tarjeta carrusel -->
+        <div class="w-full max-w-lg">
+            <div class="relative overflow-hidden rounded-[30px] bg-[#1F2937] border border-white/8 shadow-2xl">
 
-                <!-- Ciudad -->
-                <div>
-                    <label class="block text-sm text-gray-400 mb-2">Ciudad</label>
-                    <input id="profile-ciudad" type="text" placeholder="Tu ciudad"
-                           class="profile-input w-full">
-                </div>
+                <!-- Slides wrapper -->
+                <div id="steps-wrapper" class="flex transition-transform duration-500 ease-in-out">
 
-                <!-- Apellido -->
-                <div>
-                    <label class="block text-sm text-gray-400 mb-2">Apellido</label>
-                    <input id="profile-apellido" type="text" placeholder="Tu apellido"
-                           class="profile-input w-full">
-                </div>
+                    <!-- PASO 1: Foto + datos personales -->
+                    <div class="step-slide min-w-full p-10">
+                        <div class="flex items-center gap-3 mb-8">
+                            <div class="w-9 h-9 rounded-full bg-[#FF2D55]/20 flex items-center justify-center text-[#FF2D55] font-bold text-sm">1</div>
+                            <div>
+                                <p class="font-bold text-base">Tu identidad</p>
+                                <p class="text-gray-400 text-xs">Foto y datos personales</p>
+                            </div>
+                        </div>
 
-                <!-- Dirección -->
-                <div>
-                    <label class="block text-sm text-gray-400 mb-2">Dirección</label>
-                    <input id="profile-direccion" type="text" placeholder="Tu dirección"
-                           class="profile-input w-full">
-                </div>
+                        <!-- Avatar -->
+                        <div class="flex justify-center mb-8">
+                            <div class="relative">
+                                <div class="w-28 h-28 rounded-full bg-[#0A0F1C] border-4 border-[#FF2D55]/30 overflow-hidden flex items-center justify-center">
+                                    <img id="profile-avatar" src="" alt="Avatar"
+                                         class="w-full h-full object-cover hidden"
+                                         onerror="this.classList.add('hidden'); document.getElementById('profile-avatar-placeholder').classList.remove('hidden')">
+                                    <svg id="profile-avatar-placeholder" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-20 h-20">
+                                        <circle cx="50" cy="35" r="20" fill="#FF2D55"/>
+                                        <ellipse cx="50" cy="85" rx="32" ry="22" fill="#FF2D55"/>
+                                    </svg>
+                                </div>
+                                <label for="avatar-upload" class="absolute bottom-0 right-0 w-8 h-8 bg-[#FF2D55] rounded-full flex items-center justify-center cursor-pointer shadow-lg hover:scale-110 transition">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536M9 13l6.586-6.586a2 2 0 112.828 2.828L11.828 15.828a2 2 0 01-1.414.586H9v-2a2 2 0 01.586-1.414z"/>
+                                    </svg>
+                                </label>
+                                <input id="avatar-upload" type="file" accept="image/*" class="hidden" onchange="previewAvatar(event)">
+                            </div>
+                        </div>
 
-                <!-- DNI -->
-                <div>
-                    <label class="block text-sm text-gray-400 mb-2">DNI</label>
-                    <input id="profile-dni" type="text" placeholder="Tu DNI"
-                           class="profile-input w-full">
-                </div>
-
-                <!-- Correo (readonly) -->
-                <div>
-                    <label class="block text-sm text-gray-400 mb-2">Correo electrónico</label>
-                    <input id="profile-correo" type="email" readonly
-                           class="profile-input w-full opacity-60 cursor-not-allowed">
-                </div>
-
-                <!-- Fecha de Nacimiento -->
-                <div>
-                    <label class="block text-sm text-gray-400 mb-2">Fecha de Nacimiento</label>
-                    <input id="profile-nacimiento" type="date"
-                           class="profile-input w-full">
-                </div>
-
-                <!-- Género -->
-                <div>
-                    <label class="block text-sm text-gray-400 mb-2">Género</label>
-                    <div class="relative">
-                        <select id="profile-genero" class="profile-input w-full appearance-none pr-10">
-                            <option value="">Seleccionar</option>
-                            <option value="Masculino">Masculino</option>
-                            <option value="Femenino">Femenino</option>
-                            <option value="No binario">No binario</option>
-                            <option value="Prefiero no decir">Prefiero no decir</option>
-                        </select>
-                        <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
-                            <svg class="w-4 h-4 text-[#FF2D55]" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/>
-                            </svg>
+                        <div class="space-y-4">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs text-gray-400 mb-1.5">Nombre</label>
+                                    <input id="profile-nombre" type="text" placeholder="Andrea" class="profile-input w-full">
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-gray-400 mb-1.5">Apellido</label>
+                                    <input id="profile-apellido" type="text" placeholder="Carazas" class="profile-input w-full">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-400 mb-1.5">DNI</label>
+                                <input id="profile-dni" type="text" placeholder="60795045" maxlength="8" class="profile-input w-full">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-400 mb-1.5">Fecha de Nacimiento</label>
+                                <input id="profile-nacimiento" type="date" class="profile-input w-full">
+                            </div>
                         </div>
                     </div>
-                </div>
 
-            </div>
+                    <!-- PASO 2: Contacto -->
+                    <div class="step-slide min-w-full p-10">
+                        <div class="flex items-center gap-3 mb-8">
+                            <div class="w-9 h-9 rounded-full bg-[#FF2D55]/20 flex items-center justify-center text-[#FF2D55] font-bold text-sm">2</div>
+                            <div>
+                                <p class="font-bold text-base">Contacto y ubicación</p>
+                                <p class="text-gray-400 text-xs">¿Dónde recibirás tus entradas?</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-xs text-gray-400 mb-1.5">Correo electrónico</label>
+                                <input id="profile-correo" type="email" readonly class="profile-input w-full opacity-50 cursor-not-allowed">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-400 mb-1.5">Ciudad</label>
+                                <input id="profile-ciudad" type="text" placeholder="Lima" class="profile-input w-full">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-400 mb-1.5">Dirección</label>
+                                <input id="profile-direccion" type="text" placeholder="Av. Garcilaso de la Vega 133" class="profile-input w-full">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-400 mb-1.5">Género</label>
+                                <div class="relative">
+                                    <select id="profile-genero" class="profile-input w-full appearance-none pr-10">
+                                        <option value="">Seleccionar</option>
+                                        <option value="Masculino">Masculino</option>
+                                        <option value="Femenino">Femenino</option>
+                                        <option value="No binario">No binario</option>
+                                        <option value="Prefiero no decir">Prefiero no decir</option>
+                                    </select>
+                                    <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                                        <svg class="w-4 h-4 text-[#FF2D55]" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-            <!-- Botón guardar -->
-            <div class="mt-10 flex justify-end">
-                <button onclick="saveProfile()" class="btn-primary px-12 py-3 font-bold text-sm uppercase tracking-wider">
-                    Guardar cambios
+                    <!-- PASO 3: Confirmación -->
+                    <div class="step-slide min-w-full p-10">
+                        <div class="flex items-center gap-3 mb-8">
+                            <div class="w-9 h-9 rounded-full bg-[#FF2D55]/20 flex items-center justify-center text-[#FF2D55] font-bold text-sm">3</div>
+                            <div>
+                                <p class="font-bold text-base">Todo listo</p>
+                                <p class="text-gray-400 text-xs">Revisa y confirma tus datos</p>
+                            </div>
+                        </div>
+
+                        <!-- Mini resumen -->
+                        <div class="flex flex-col items-center mb-8">
+                            <div class="w-20 h-20 rounded-full bg-[#0A0F1C] border-4 border-[#FF2D55]/40 overflow-hidden flex items-center justify-center mb-3">
+                                <img id="summary-avatar" src="" alt="" class="w-full h-full object-cover hidden">
+                                <svg id="summary-avatar-placeholder" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-14 h-14">
+                                    <circle cx="50" cy="35" r="20" fill="#FF2D55"/>
+                                    <ellipse cx="50" cy="85" rx="32" ry="22" fill="#FF2D55"/>
+                                </svg>
+                            </div>
+                            <p id="summary-name" class="font-extrabold text-lg"></p>
+                            <p id="summary-email" class="text-gray-400 text-sm"></p>
+                        </div>
+
+                        <div class="space-y-3 text-sm">
+                            <div class="flex justify-between py-3 border-b border-white/5">
+                                <span class="text-gray-400">DNI</span>
+                                <span id="summary-dni" class="font-semibold">—</span>
+                            </div>
+                            <div class="flex justify-between py-3 border-b border-white/5">
+                                <span class="text-gray-400">Fecha de Nacimiento</span>
+                                <span id="summary-nacimiento" class="font-semibold">—</span>
+                            </div>
+                            <div class="flex justify-between py-3 border-b border-white/5">
+                                <span class="text-gray-400">Ciudad</span>
+                                <span id="summary-ciudad" class="font-semibold">—</span>
+                            </div>
+                            <div class="flex justify-between py-3 border-b border-white/5">
+                                <span class="text-gray-400">Dirección</span>
+                                <span id="summary-direccion" class="font-semibold">—</span>
+                            </div>
+                            <div class="flex justify-between py-3">
+                                <span class="text-gray-400">Género</span>
+                                <span id="summary-genero" class="font-semibold">—</span>
+                            </div>
+                        </div>
+
+                        <p class="text-xs text-gray-500 text-center mt-6">Al continuar aceptas nuestros <span class="text-[#FF2D55] cursor-pointer">Términos y Condiciones</span>.</p>
+                    </div>
+
+                </div><!-- /steps-wrapper -->
+            </div><!-- /tarjeta -->
+
+            <!-- Navegación -->
+            <div class="flex items-center justify-between mt-8 px-1">
+                <button id="step-back-btn" onclick="profileStepBack()"
+                        class="flex items-center gap-2 text-gray-400 hover:text-white transition text-sm font-semibold invisible">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+                    Atrás
+                </button>
+                <button id="step-next-btn" onclick="profileStepNext()"
+                        class="btn-primary px-10 py-3 font-bold text-sm uppercase tracking-wider">
+                    Siguiente
                 </button>
             </div>
         </div>
