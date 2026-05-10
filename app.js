@@ -330,9 +330,16 @@ function goToStep(index) {
 }
 
 function syncStepUI() {
-    // Slider
-    const wrapper = document.getElementById('steps-wrapper');
-    if (wrapper) wrapper.style.transform = `translateX(-${currentStep * 100}%)`;
+    // Slider — use pixel-based translation so slides don't bleed
+    const container = document.getElementById('carousel-container');
+    const wrapper   = document.getElementById('steps-wrapper');
+    if (wrapper && container) {
+        const w = container.offsetWidth;
+        // Set each slide to the exact container width
+        const slides = wrapper.querySelectorAll('.step-slide');
+        slides.forEach(s => { s.style.width = w + 'px'; s.style.flexShrink = '0'; });
+        wrapper.style.transform = `translateX(-${currentStep * w}px)`;
+    }
 
     // Barra de progreso
     const pct = Math.round(((currentStep + 1) / TOTAL_STEPS) * 100);
@@ -413,7 +420,8 @@ function loadProfile() {
     // Reset al paso 1
     currentStep = 0;
     buildDots();
-    syncStepUI();
+    // Delay so carousel container has rendered and has a real offsetWidth
+    setTimeout(() => syncStepUI(), 50);
 
     // Foto de Google
     const avatarEl = document.getElementById('profile-avatar');
@@ -518,6 +526,12 @@ function previewAvatar(event) {
 // =====================================================
 document.body.classList.add('loading');
 
+window.addEventListener('resize', () => {
+    if (document.getElementById('profile') && !document.getElementById('profile').classList.contains('hidden-section')) {
+        syncStepUI();
+    }
+});
+
 window.onload = () => {
     renderGrids();
     initializeGoogleSignIn();
@@ -533,6 +547,9 @@ window.onload = () => {
     setTimeout(() => {
         document.getElementById('splash').remove();
         if (!currentUser) {
+            // Show home by default, hide all others
+            document.querySelectorAll('section').forEach(s => s.classList.add('hidden-section'));
+            document.getElementById('home').classList.remove('hidden-section');
             document.getElementById('loginScreen').classList.remove('hidden');
         }
         document.body.classList.remove('loading');
