@@ -42,7 +42,7 @@
             <a href="#" onclick="showSection('home')" class="hover:text-[#FF2D55] transition">Inicio</a>
             <a href="#" onclick="showSection('events')" class="hover:text-[#FF2D55] transition">Eventos</a>
             <a href="#" class="hover:text-[#FF2D55] transition">Entradas</a>
-            <a href="#" class="hover:text-[#FF2D55] transition">Perfil</a>
+            <a href="#" onclick="showSection('profile')" class="hover:text-[#FF2D55] transition">Perfil</a>
         </div>
         <div id="auth-container" class="flex items-center gap-4">
             <button id="connect-btn" onclick="document.getElementById('loginScreen').classList.remove('hidden')" class="btn-primary px-6 py-2 text-sm font-bold">CONECTAR</button>
@@ -53,7 +53,7 @@
                     <span>▼</span>
                 </div>
                 <div class="dropdown-content">
-                    <a onclick="showSection('home')">Mi Perfil</a>
+                    <a onclick="showSection('profile')">Mi Perfil</a>
                     <a onclick="showSection('home')">Mis Entradas</a>
                     <a onclick="logoutUser()">Cerrar Sesión</a>
                 </div>
@@ -227,6 +227,118 @@
             <p class="text-gray-400 mb-8">No se han encontrado entradas disponibles para esta categoría en este momento.</p>
             <button onclick="showSection('events')" class="btn-primary px-8 py-3 font-bold uppercase">Volver a eventos</button>
         </div>
+    </section>
+
+    <!-- PROFILE -->
+    <section id="profile" class="max-w-5xl mx-auto px-6 py-16 hidden-section">
+
+        <!-- Avatar + nombre -->
+        <div class="flex flex-col items-center mb-14">
+            <div class="relative mb-4">
+                <div class="w-36 h-36 rounded-full bg-[#1F2937] border-4 border-[#FF2D55]/30 overflow-hidden flex items-center justify-center">
+                    <img id="profile-avatar" src="" alt="Avatar"
+                         class="w-full h-full object-cover hidden"
+                         onerror="this.classList.add('hidden'); document.getElementById('profile-avatar-placeholder').classList.remove('hidden')">
+                    <!-- placeholder silueta -->
+                    <svg id="profile-avatar-placeholder" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-24 h-24">
+                        <circle cx="50" cy="35" r="20" fill="#FF2D55"/>
+                        <ellipse cx="50" cy="85" rx="32" ry="22" fill="#FF2D55"/>
+                    </svg>
+                </div>
+                <!-- botón editar foto -->
+                <label for="avatar-upload" class="absolute bottom-1 right-1 w-9 h-9 bg-[#FF2D55] rounded-full flex items-center justify-center cursor-pointer shadow-lg hover:scale-110 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536M9 13l6.586-6.586a2 2 0 112.828 2.828L11.828 15.828a2 2 0 01-1.414.586H9v-2a2 2 0 01.586-1.414z"/>
+                    </svg>
+                </label>
+                <input id="avatar-upload" type="file" accept="image/*" class="hidden" onchange="previewAvatar(event)">
+            </div>
+            <h2 id="profile-full-name" class="text-2xl font-extrabold mt-2"></h2>
+            <p id="profile-email-display" class="text-gray-400 text-sm mt-1"></p>
+        </div>
+
+        <!-- Formulario 2 columnas -->
+        <div class="bg-[#1F2937]/60 backdrop-blur-sm border border-white/5 rounded-[30px] p-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6">
+
+                <!-- Nombre -->
+                <div>
+                    <label class="block text-sm text-gray-400 mb-2">Nombre</label>
+                    <input id="profile-nombre" type="text" placeholder="Tu nombre"
+                           class="profile-input w-full">
+                </div>
+
+                <!-- Ciudad -->
+                <div>
+                    <label class="block text-sm text-gray-400 mb-2">Ciudad</label>
+                    <input id="profile-ciudad" type="text" placeholder="Tu ciudad"
+                           class="profile-input w-full">
+                </div>
+
+                <!-- Apellido -->
+                <div>
+                    <label class="block text-sm text-gray-400 mb-2">Apellido</label>
+                    <input id="profile-apellido" type="text" placeholder="Tu apellido"
+                           class="profile-input w-full">
+                </div>
+
+                <!-- Dirección -->
+                <div>
+                    <label class="block text-sm text-gray-400 mb-2">Dirección</label>
+                    <input id="profile-direccion" type="text" placeholder="Tu dirección"
+                           class="profile-input w-full">
+                </div>
+
+                <!-- DNI -->
+                <div>
+                    <label class="block text-sm text-gray-400 mb-2">DNI</label>
+                    <input id="profile-dni" type="text" placeholder="Tu DNI"
+                           class="profile-input w-full">
+                </div>
+
+                <!-- Correo (readonly) -->
+                <div>
+                    <label class="block text-sm text-gray-400 mb-2">Correo electrónico</label>
+                    <input id="profile-correo" type="email" readonly
+                           class="profile-input w-full opacity-60 cursor-not-allowed">
+                </div>
+
+                <!-- Fecha de Nacimiento -->
+                <div>
+                    <label class="block text-sm text-gray-400 mb-2">Fecha de Nacimiento</label>
+                    <input id="profile-nacimiento" type="date"
+                           class="profile-input w-full">
+                </div>
+
+                <!-- Género -->
+                <div>
+                    <label class="block text-sm text-gray-400 mb-2">Género</label>
+                    <div class="relative">
+                        <select id="profile-genero" class="profile-input w-full appearance-none pr-10">
+                            <option value="">Seleccionar</option>
+                            <option value="Masculino">Masculino</option>
+                            <option value="Femenino">Femenino</option>
+                            <option value="No binario">No binario</option>
+                            <option value="Prefiero no decir">Prefiero no decir</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                            <svg class="w-4 h-4 text-[#FF2D55]" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Botón guardar -->
+            <div class="mt-10 flex justify-end">
+                <button onclick="saveProfile()" class="btn-primary px-12 py-3 font-bold text-sm uppercase tracking-wider">
+                    Guardar cambios
+                </button>
+            </div>
+        </div>
+
     </section>
 
 </main>
